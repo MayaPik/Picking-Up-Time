@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../../store";
 
-interface LoginScreenProps {
-  userType: string | null;
-}
-
-export const FormOfLoginScreen: React.FC<LoginScreenProps> = ({ userType }) => {
+export const FormOfLoginScreen: React.FC = () => {
+  const usertype = useStore((state) => state.usertype);
+  const username = useStore((state) => state.username);
+  const setUsername = useStore((state) => state.setUsername);
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -15,7 +15,7 @@ export const FormOfLoginScreen: React.FC<LoginScreenProps> = ({ userType }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:4000/api/login/${userType}`,
+        `https://mayo-final-project.herokuapp.com/api/login/${usertype}`,
         {
           method: "POST",
           body: JSON.stringify({
@@ -41,7 +41,7 @@ export const FormOfLoginScreen: React.FC<LoginScreenProps> = ({ userType }) => {
   };
   return (
     <div className="login__container">
-      <h1>Hey {userType} , please sign in</h1>
+      <h1>Hey {usertype} , please sign in</h1>
       <form onSubmit={handleSubmit} className="login__form">
         <label>User Name:</label>
         <br />
@@ -49,7 +49,7 @@ export const FormOfLoginScreen: React.FC<LoginScreenProps> = ({ userType }) => {
           required
           type="username"
           name="user"
-          value={username}
+          value={username ?? ""}
           onChange={(e) => setUsername(e.target.value)}
         />
         <br />

@@ -1,28 +1,31 @@
 import React from "react";
+import { useStore } from "../../store";
 
-interface UserTypePathProps {
-  setUserType: React.Dispatch<React.SetStateAction<any>>;
-}
+export const UserTypePath: React.FC = () => {
+  const setUsertype = useStore((state) => state.setUsertype);
 
-export const UserTypePath: React.FC<UserTypePathProps> = ({ setUserType }) => {
   const handleChange = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
     if (event.currentTarget.value === "admin") {
-      setUserType("admin");
+      setUsertype("admin");
+      localStorage.setItem("usertype", "admin");
     } else if (event.currentTarget.value === "child") {
-      setUserType("child");
+      setUsertype("child");
+      localStorage.setItem("usertype", "child");
     } else {
-      setUserType("guide");
+      setUsertype("guide");
+      localStorage.setItem("usertype", "guide");
     }
   };
 
   return (
     <div>
-      <button onClick={handleChange} value="parent">
-        parent
-      </button>
       <button onClick={handleChange} value="child">
         child
+      </button>
+      <button onClick={handleChange} value="guide">
+        guide
       </button>
       <button onClick={handleChange} value="admin">
         admin

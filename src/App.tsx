@@ -1,26 +1,30 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { LoginScreen } from "./login/LoginScreen";
-import { MainScreen } from "./main/MainScreen";
+import { LoginScreen } from "./Pages/login/LoginScreen";
+import { MainScreen } from "./Pages/main/MainScreen";
+import { useStore } from "./store";
+
 import "./App.css";
 
 function App() {
-  const [userType, setUserType] = useState("parent");
-  const [username, setUsername] = useState(null);
+  const isLoggedIn = useStore((state) => state.isLoggedIn);
 
+  useEffect(() => {
+    if (localStorage.getItem("username")) {
+      useStore.setState({ isLoggedIn: true });
+    }
+    const checkUser = () => {
+      if (isLoggedIn && window.location.pathname === "/") {
+        window.location.href = "/main";
+      }
+    };
+    checkUser();
+  }, [isLoggedIn]);
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <LoginScreen userType={userType} setUserType={setUserType} />
-          }
-        />
-        <Route
-          path="/main"
-          element={<MainScreen userType={userType} username={username} />}
-        ></Route>
+        <Route path="/" element={<LoginScreen />} />
+        <Route path="/main" element={<MainScreen />}></Route>
       </Routes>
     </Router>
   );
