@@ -7,7 +7,6 @@ export const FormOfLoginScreen: React.FC = () => {
   const username = useStore((state) => state.username);
   const setUsername = useStore((state) => state.setUsername);
   const navigate = useNavigate();
-
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -30,6 +29,7 @@ export const FormOfLoginScreen: React.FC = () => {
       const data = await response.json();
       if (data.message) {
         localStorage.setItem("username", data.data.username);
+        localStorage.setItem("userid", data.data.id);
         navigate("/main");
       } else {
         setError(data.error_message);

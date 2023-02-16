@@ -6,8 +6,10 @@ interface AppState {
   usertype: string | null;
   setUsertype: (usertype: string | null) => void;
   userid: number | null;
-  setUsedid: (userid: number | null) => void;
+  setUserid: (userid: number | null) => void;
   isLoggedIn: boolean;
+  today: string | null;
+  setToday: (today: string | null) => void;
 }
 
 export const useStore = create<AppState>((set) => ({
@@ -16,8 +18,10 @@ export const useStore = create<AppState>((set) => ({
   usertype: null,
   setUsertype: (usertype: string | null) => set({ usertype }),
   userid: null,
-  setUsedid: (userid: number | null) => set({ userid }),
+  setUserid: (userid: number | null) => set({ userid }),
   isLoggedIn: false,
+  today: null,
+  setToday: (today: string | null) => set({ today }),
 }));
 
 interface ParentState {

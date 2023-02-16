@@ -11,6 +11,7 @@ export const MainScreen: React.FC = () => {
   const username = useStore((state) => state.username);
   const setUsertype = useStore((state) => state.setUsertype);
   const setUsername = useStore((state) => state.setUsername);
+  const setUserid = useStore((state) => state.setUserid);
 
   useEffect(() => {
     if (localStorage.getItem("username")) {
@@ -19,7 +20,10 @@ export const MainScreen: React.FC = () => {
     if (localStorage.getItem("usertype")) {
       setUsertype(localStorage.getItem("usertype"));
     }
-  }, [username, usertype, setUsertype, setUsername]);
+    if (localStorage.getItem("userid")) {
+      setUserid(Number(localStorage.getItem("userid")));
+    }
+  }, [username, usertype, setUsertype, setUsername, setUserid]);
 
   useEffect(() => {
     const checkUser = () => {

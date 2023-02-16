@@ -34,7 +34,7 @@ export const PickingUpComponent: React.FC = () => {
         })}
       </BottomNavigation>
       <br></br>
-      <BoxOfOptions day={today} />
+      <BoxOfOptions day={days[today]} screentype={screentype} />
     </Box>
   );
 };

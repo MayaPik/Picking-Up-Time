@@ -1,10 +1,10 @@
-export async function getUserId(
+export const getUserId = async (
   username: string | null,
-  userType: string | null
-): Promise<string | null> {
+  usertype: string | null
+): Promise<number | null> => {
   try {
     const response = await fetch(
-      `https://mayo-final-project.herokuapp.com/api/login/${userType}`,
+      `https://mayo-final-project.herokuapp.com/api/login/${usertype}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -15,15 +15,18 @@ export async function getUserId(
         },
       }
     );
+    console.log(response);
     const data = await response.json();
-    if (data[`${userType}id`]) {
-      return data[`${userType}id`];
+    const userId = await data?.id;
+    if (userId) {
+      return userId;
     } else {
-      console.log("No matching user found in database");
+      console.log(data);
+      console.error("No matching user found in database");
       return null;
     }
   } catch (err) {
-    console.log("Error getting user ID from database:", err);
+    console.error("Error getting user ID from database:", err);
     return null;
   }
-}
+};
