@@ -7,27 +7,24 @@ import { useStore } from "../../store";
 
 export const MainScreen: React.FC = () => {
   const navigate = useNavigate();
+  const user = useStore((state) => state.user);
+  const setUser = useStore((state) => state.setUser);
   const usertype = useStore((state) => state.usertype);
-  const username = useStore((state) => state.username);
   const setUsertype = useStore((state) => state.setUsertype);
-  const setUsername = useStore((state) => state.setUsername);
-  const setUserid = useStore((state) => state.setUserid);
 
   useEffect(() => {
-    if (localStorage.getItem("username")) {
-      setUsername(localStorage.getItem("username"));
+    const user = localStorage.getItem("user");
+    if (user !== null) {
+      setUser(JSON.parse(user));
     }
     if (localStorage.getItem("usertype")) {
       setUsertype(localStorage.getItem("usertype"));
     }
-    if (localStorage.getItem("userid")) {
-      setUserid(Number(localStorage.getItem("userid")));
-    }
-  }, [username, usertype, setUsertype, setUsername, setUserid]);
+  }, [setUser, setUsertype]);
 
   useEffect(() => {
     const checkUser = () => {
-      if (!localStorage.getItem("username")) {
+      if (!localStorage.getItem("user")) {
         navigate("/");
       }
     };
@@ -45,7 +42,9 @@ export const MainScreen: React.FC = () => {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem("username");
+    localStorage.removeItem("user");
+    localStorage.removeItem("usertype");
+
     navigate("/");
   };
 
@@ -53,7 +52,7 @@ export const MainScreen: React.FC = () => {
     <div>
       <div className="dashboard">
         <p>
-          signed in as {username}{" "}
+          signed in as {user.username}{" "}
           <button onClick={handleSignOut}>SIGN OUT</button>
         </p>
         <PageDisplay />

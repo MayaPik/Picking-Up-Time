@@ -4,9 +4,10 @@ import { useStore } from "../../store";
 
 export const FormOfLoginScreen: React.FC = () => {
   const usertype = useStore((state) => state.usertype);
-  const username = useStore((state) => state.username);
-  const setUsername = useStore((state) => state.setUsername);
+  // const username = useStore((state) => state.username);
+  // const setUsername = useStore((state) => state.setUsername);
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -28,8 +29,7 @@ export const FormOfLoginScreen: React.FC = () => {
       );
       const data = await response.json();
       if (data.message) {
-        localStorage.setItem("username", data.data.username);
-        localStorage.setItem("userid", data.data.id);
+        localStorage.setItem("user", JSON.stringify(data.data.user));
         navigate("/main");
       } else {
         setError(data.error_message);

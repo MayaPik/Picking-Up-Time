@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -7,7 +7,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useStore } from "../store";
-import { StringLiteralType } from "typescript";
 interface LoginScreenProps {
   day: string;
   screentype: string;
@@ -25,7 +24,8 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
   const [pickingUpTime, setPickingUpTime] = useState<string | undefined>(
     undefined
   );
-  const userid = useStore((state) => state.userid);
+  const [date, setDate] = useState<Date | null>(null);
+  const user = useStore((state) => state.user);
 
   const options: Option[] = [
     { name: "not staying", value: "not staying" },
@@ -33,6 +33,28 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
     { name: "15:30", value: "15:30" },
     { name: "after 15:45", value: "" },
   ];
+  const getCurrentWeekDayDate = (weekday: string): Date => {
+    const weekdayIndex = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+    ].indexOf(weekday);
+    const today = new Date();
+    const currentDay = today.getDay();
+    const daysUntilWeekday = (weekdayIndex + 7 - currentDay) % 7;
+    const targetDay = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() + daysUntilWeekday
+    );
+    return targetDay;
+  };
+
+  useEffect(() => {
+    setDate(getCurrentWeekDayDate(day));
+  }, [day]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setPickingUpTime(event.target.value as string | undefined);
@@ -40,9 +62,9 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
 
   const handleSubmit = () => {
     console.log(
-      `changes to make in user number ${userid}: 
-      at day - ${day} picking up time is ${pickingUpTime}.
-      type of change : ${screentype}`
+      `changes to make in child id  ${user.childid}: 
+      at day - ${day} picking up time is ${pickingUpTime} type of change : ${screentype}
+      date - ${date}`
     );
   };
 
@@ -64,6 +86,10 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
             ))}
           </Select>
         </FormControl>
+        {screentype === "fixed" ? (
+          <p>i understand that this will be saved</p>
+        ) : null}
+
         <Button variant="contained" color="primary" onClick={handleSubmit}>
           Submit
         </Button>
