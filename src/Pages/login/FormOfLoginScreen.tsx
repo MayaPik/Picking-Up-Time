@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "../../store";
 
 export const FormOfLoginScreen: React.FC = () => {
+  const backend = useStore((state) => state.backend);
   const usertype = useStore((state) => state.usertype);
-  // const username = useStore((state) => state.username);
-  // const setUsername = useStore((state) => state.setUsername);
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -14,19 +13,16 @@ export const FormOfLoginScreen: React.FC = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `https://mayo-final-project.herokuapp.com/api/login/${usertype}`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            username: username,
-            password: password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backend}/api/${usertype}/login`, {
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await response.json();
       if (data.message) {
         localStorage.setItem("user", JSON.stringify(data.data.user));
@@ -42,14 +38,14 @@ export const FormOfLoginScreen: React.FC = () => {
   return (
     <div className="login__container">
       <h1>Hey {usertype} , please sign in</h1>
-      <form onSubmit={handleSubmit} className="login__form">
+      <form onClick={handleSubmit} className="login__form">
         <label>User Name:</label>
         <br />
         <input
           required
-          type="username"
-          name="user"
-          value={username ?? ""}
+          type="text"
+          name="username"
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <br />

@@ -1,6 +1,7 @@
 import create from "zustand";
 
 interface AppState {
+  backend: string;
   user: { [key: string]: string };
   setUser: (user: {}) => void;
   //   username: string | null;
@@ -15,6 +16,7 @@ interface AppState {
 }
 
 export const useStore = create<AppState>((set) => ({
+  backend: "https://mayo-final-project.herokuapp.com",
   user: {},
   setUser: (user: {}) => set({ user }),
   //   username: null,

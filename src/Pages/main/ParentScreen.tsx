@@ -1,12 +1,12 @@
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { ParentFixed } from "../../Components/ParentFixed";
-import { ParentOngoing } from "../../Components/ParentOngiong";
-import { useParentStore } from "../../store";
+import { PickingUpComponent } from "../../Components/PickingUpComponent";
+import { useParentStore, useStore } from "../../store";
 
 export const ParentScreen: React.FC = () => {
   const screentype = useParentStore((state: any) => state.screentype);
   const setScreentype = useParentStore((state: any) => state.setScreentype);
+  const user = useStore((state: any) => state.user);
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -29,9 +29,17 @@ export const ParentScreen: React.FC = () => {
         <ToggleButton value="ongoing">Ongoing</ToggleButton>
         <ToggleButton value="fixed">Fixed</ToggleButton>
       </ToggleButtonGroup>
+      <h1>Hello Parent of {user?.first_name}</h1>
 
-      {screentype === "fixed" && <ParentFixed />}
-      {screentype === "ongoing" && <ParentOngoing />}
+      {screentype === "fixed" ? (
+        <h3>
+          Are there any days you want to pick {user?.first_name} in the same
+          hour?
+        </h3>
+      ) : (
+        <h3>Welcome Back! When do you want to pick up {user?.first_name}?</h3>
+      )}
+      <PickingUpComponent />
     </div>
   );
 };

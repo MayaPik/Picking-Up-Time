@@ -10,7 +10,7 @@ function App() {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
 
   useEffect(() => {
-    if (localStorage.getItem("username")) {
+    if (localStorage.getItem("user")) {
       useStore.setState({ isLoggedIn: true });
     }
     const checkUser = () => {

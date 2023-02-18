@@ -5,8 +5,6 @@ export const UserTypePath: React.FC = () => {
   const setUsertype = useStore((state) => state.setUsertype);
 
   const handleChange = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
     if (event.currentTarget.value === "admin") {
       setUsertype("admin");
       localStorage.setItem("usertype", "admin");
