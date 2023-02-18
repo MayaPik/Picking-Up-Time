@@ -1,12 +1,16 @@
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import {
+  Box,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import { PickingUpComponent } from "../../Components/PickingUpComponent";
 import { useParentStore, useStore } from "../../store";
 
 export const ParentScreen: React.FC = () => {
-  const screentype = useParentStore((state: any) => state.screentype);
-  const setScreentype = useParentStore((state: any) => state.setScreentype);
-  const user = useStore((state: any) => state.user);
+  const screentype = useParentStore((state) => state.screentype);
+  const setScreentype = useParentStore((state) => state.setScreentype);
+  const user = useStore((state) => state.user);
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -18,7 +22,21 @@ export const ParentScreen: React.FC = () => {
   };
 
   return (
-    <div>
+    <Box>
+      <Typography variant="h3" gutterBottom>
+        Hello Parent of {user?.first_name}
+      </Typography>
+
+      {screentype === "fixed" ? (
+        <Typography variant="h5" gutterBottom>
+          Are there any days you want to pick {user?.first_name} in the same
+          hour?
+        </Typography>
+      ) : (
+        <Typography variant="h5" gutterBottom>
+          Welcome Back! When do you want to pick up {user?.first_name}?{" "}
+        </Typography>
+      )}
       <ToggleButtonGroup
         color="primary"
         value={screentype}
@@ -29,17 +47,7 @@ export const ParentScreen: React.FC = () => {
         <ToggleButton value="ongoing">Ongoing</ToggleButton>
         <ToggleButton value="fixed">Fixed</ToggleButton>
       </ToggleButtonGroup>
-      <h1>Hello Parent of {user?.first_name}</h1>
-
-      {screentype === "fixed" ? (
-        <h3>
-          Are there any days you want to pick {user?.first_name} in the same
-          hour?
-        </h3>
-      ) : (
-        <h3>Welcome Back! When do you want to pick up {user?.first_name}?</h3>
-      )}
       <PickingUpComponent />
-    </div>
+    </Box>
   );
 };

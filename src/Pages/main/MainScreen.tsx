@@ -4,23 +4,21 @@ import { ParentScreen } from "./ParentScreen";
 import { AdminScreen } from "./AdminScreen";
 import { GuideScreen } from "./GuideScreen";
 import { useStore } from "../../store";
+import { Box, Chip, Button } from "@mui/material";
+import FaceIcon from "@mui/icons-material/Face";
 
 export const MainScreen: React.FC = () => {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
   const usertype = useStore((state) => state.usertype);
-  const setUsertype = useStore((state) => state.setUsertype);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user !== null) {
       setUser(JSON.parse(user));
     }
-    if (localStorage.getItem("usertype")) {
-      setUsertype(localStorage.getItem("usertype"));
-    }
-  }, [setUser, setUsertype]);
+  }, [setUser]);
 
   useEffect(() => {
     const checkUser = () => {
@@ -44,20 +42,19 @@ export const MainScreen: React.FC = () => {
   const handleSignOut = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("usertype");
-
     navigate("/");
   };
 
   return (
-    <div>
-      <div className="dashboard">
-        <p>
-          signed in as {user.username}{" "}
-          <button onClick={handleSignOut}>SIGN OUT</button>
-        </p>
-        <PageDisplay />
-        <br />
-      </div>
-    </div>
+    <Box>
+      <Chip
+        icon={<FaceIcon />}
+        label={`signed in as ${user.username}`}
+        variant="outlined"
+        sx={{ mr: "auto" }}
+      />
+      <Button onClick={handleSignOut}>SIGN OUT</Button>
+      <PageDisplay />
+    </Box>
   );
 };

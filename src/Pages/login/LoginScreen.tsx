@@ -1,8 +1,8 @@
-import React from "react";
+import { FunctionComponent } from "react";
 import { UserTypePath } from "./UserTypePath";
 import { FormOfLoginScreen } from "./FormOfLoginScreen";
 
-export const LoginScreen: React.FC = () => {
+export const LoginScreen: FunctionComponent = () => {
   return (
     <div>
       <UserTypePath />

@@ -1,38 +1,60 @@
 import { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import { useStore } from "../store";
+import { Box, Typography, Card } from "@mui/material";
+import { useStore, useDateStore } from "../store";
 
 interface TimeProps {
   hour: string;
 }
+interface Child {
+  childid: number;
+  first_name: string;
+  last_name: string;
+  class: number;
+}
+
+interface HourData {
+  message: string;
+  data: [];
+  error_message: string;
+}
+
+const hours = [
+  { time: "00:00", string: "Not Staying" },
+  { time: "15:00", string: "15:00" },
+  { time: "15:30", string: "15:30" },
+  { time: "else", string: "Exceptions" },
+];
 
 export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
+  const backend = useStore((state) => state.backend);
   const user = useStore((state) => state.user);
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
-  const today = new Date();
-  const todayDay = days[1];
-  const todayDate =
-    today.getFullYear() +
-    "-0" +
-    Number(today.getMonth() + 1) +
-    "-" +
-    today.getDate();
-
+  const usertype = useStore((state) => state.usertype);
+  const dayOfWeek = useDateStore((state) => state.dayOfWeek);
+  const today = useDateStore((state) => state.today);
+  const todayDate: string = `${today.getFullYear()}-${Number(
+    today.getMonth() + 1
+  )}-${today.getDate()}`;
+  const [classNames, setClassNames] = useState<{ [key: number]: string }>({});
   const [message, setMessage] = useState("");
-  const [childrenOfHour, setChildrenOfHour] = useState([]);
+  const [childrenOfHour, setChildrenOfHour] = useState<Array<Child>>([]);
 
   useEffect(() => {
-    const GetChildrenList = async () => {
+    const getChildrenList = async () => {
       try {
-        const response = await fetch(
-          `https://mayo-final-project.herokuapp.com/api/getAllChildrenOfHour?day=${todayDay}&time=${hour}&guideid=${user.guideid}&date=${todayDate}`
-        );
-        const data = await response.json();
+        let url = `${backend}/api/getAllChildrenOfHour?day=${dayOfWeek}&time=${hour}&date=${todayDate}`;
+        if (usertype === "guide") {
+          url += `&guideid=${user.guideid}`;
+        }
+        let data: HourData = { message: "", data: [], error_message: "" };
+        if (user.adminid || user.guideid) {
+          const response = await fetch(url);
+          data = await response.json();
+        }
         if (data.message) {
-          setMessage("");
           setChildrenOfHour(data.data);
+          setMessage("");
         } else {
+          setMessage(data.error_message);
         }
       } catch (err) {
         console.error(err);
@@ -40,26 +62,66 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
       }
     };
 
-    GetChildrenList();
-  }, [hour, user, todayDate, todayDay]);
+    getChildrenList();
+  }, [hour, user, todayDate, dayOfWeek, backend, usertype]);
+
+  useEffect(() => {
+    const classIdToName = async (id: number): Promise<string> => {
+      try {
+        const response = await fetch(
+          `${backend}/api/getClassName?classid=${id}`
+        );
+        const data = await response.json();
+        if (data.message) {
+          setClassNames((prevClassNames) => ({
+            ...prevClassNames,
+            [id]: data.class_name,
+          }));
+          return data.class_name;
+        }
+      } catch (err) {
+        console.error(`Error in classIdToName function: ${err}`);
+        setMessage("Could not load the class name");
+      }
+      return "";
+    };
+
+    const fetchClassNames = async () => {
+      const ids = childrenOfHour.map((child) => child.class);
+      const classNamesPromises = ids.map((id) => classIdToName(id));
+      await Promise.all(classNamesPromises);
+    };
+    fetchClassNames();
+  }, [childrenOfHour, backend]);
 
   return (
     <Box>
       <Card>
-        <h1>{hour}</h1>
-        {childrenOfHour.length === 0 ? (
-          <p>No children for this hour</p>
-        ) : (
-          <ul>
-            {childrenOfHour.map((child: any) => (
-              <li key={child.childid}>
-                {child.first_name} {child.last_name}
-              </li>
-            ))}
-          </ul>
-        )}
+        <Box>
+          <Typography variant="h3" gutterBottom>
+            {hours
+              .filter((each) => each.time === hour)
+              .map((hour) => hour.string)}{" "}
+          </Typography>
+          {childrenOfHour.length === 0 ? (
+            ""
+          ) : (
+            <ul>
+              {childrenOfHour.map((child: Child) => (
+                <li key={child.childid}>
+                  <span>
+                    {child.first_name} {child.last_name}
+                  </span>
+                  <span>
+                    {user.adminid ? classNames[child.class] || "" : ""}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Box>
+        {message && <p>{message}</p>}
       </Card>
-      {message && <p>{message}</p>}
     </Box>
   );
 };

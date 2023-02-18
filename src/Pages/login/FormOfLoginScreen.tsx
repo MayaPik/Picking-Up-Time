@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { FunctionComponent, useState } from "react";
+import { Typography, TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../store";
 
-export const FormOfLoginScreen: React.FC = () => {
+export const FormOfLoginScreen: FunctionComponent = () => {
   const backend = useStore((state) => state.backend);
   const usertype = useStore((state) => state.usertype);
   const navigate = useNavigate();
@@ -10,8 +11,8 @@ export const FormOfLoginScreen: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
       const response = await fetch(`${backend}/api/${usertype}/login`, {
         method: "POST",
@@ -36,34 +37,34 @@ export const FormOfLoginScreen: React.FC = () => {
     }
   };
   return (
-    <div className="login__container">
-      <h1>Hey {usertype} , please sign in</h1>
-      <form onClick={handleSubmit} className="login__form">
-        <label>User Name:</label>
-        <br />
-        <input
-          required
-          type="text"
+    <Box sx={{ p: 2 }}>
+      <Typography variant="h4">Hey {usertype}, please sign in</Typography>
+      <Box
+        component="form"
+        onSubmit={handleForm}
+        sx={{ display: "flex", flexDirection: "column", mt: 2 }}
+      >
+        <TextField
+          label="User Name"
           name="username"
+          variant="outlined"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          sx={{ m: 5 }}
         />
-        <br />
-        <label>Password:</label>
-        <br />
-        <input
-          required
+        <TextField
+          label="Password"
           type="password"
-          name="password"
+          variant="outlined"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          sx={{ m: 5 }}
         />
-        <br />
-        <button type="submit" className="loginBtn">
+        <Button type="submit" variant="contained" sx={{ m: 5 }}>
           Sign In
-        </button>
-        {error && <div>{error}</div>}
-      </form>
-    </div>
+        </Button>
+        {error && <Typography color="error">{error}</Typography>}
+      </Box>
+    </Box>
   );
 };

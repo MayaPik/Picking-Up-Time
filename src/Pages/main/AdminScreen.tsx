@@ -1,11 +1,22 @@
-import { useStore } from "../../store";
-
+import { useStore, useDateStore } from "../../store";
+import { BoxOfChildrenEachHour } from "../../Components/BoxOfChildrenEachHour";
+import { Box, Typography } from "@mui/material";
 export const AdminScreen: React.FC = () => {
   const user = useStore((state) => state.user);
+  const dayOfWeek = useDateStore((state) => state.dayOfWeek);
 
   return (
-    <div>
-      <h1>Hey admin {user.first_name}</h1>
-    </div>
+    <Box>
+      <Typography variant="h3" gutterBottom>
+        Hey Admin {user.first_name}
+      </Typography>
+      <Typography variant="h5" gutterBottom>
+        Scedule for {dayOfWeek}
+      </Typography>
+      <BoxOfChildrenEachHour hour={"00:00"} />
+      <BoxOfChildrenEachHour hour={"15:00"} />
+      <BoxOfChildrenEachHour hour={"15:30"} />
+      <BoxOfChildrenEachHour hour={"else"} />
+    </Box>
   );
 };
