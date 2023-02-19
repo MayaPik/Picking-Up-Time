@@ -25,15 +25,19 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
   screentype,
   chosenDate,
 }) => {
-  const [pickingUpTime, setPickingUpTime] = useState<string | null>(null);
+  const [pickingUpTime, setPickingUpTime] = useState<string | null>("15:00");
   const [message, setMessage] = useState("");
   const user = useStore((state) => state.user);
+  const [isChecked, setIsChecked] = useState(false);
 
+  const handleCheckboxChange = (event: any) => {
+    setIsChecked(event.target.checked);
+  };
   const options: Option[] = [
     { name: "Not staying", value: "00:00" },
     { name: "15:00", value: "15:00" },
     { name: "15:30", value: "15:30" },
-    { name: "After 15:45", value: "after_hours" },
+    { name: "After 15:45 (Defualt)", value: "after_hours" },
   ];
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -89,20 +93,26 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
             ))}
           </Select>
         </FormControl>
+
         {screentype === "fixed" ? (
           <p>
-            <input type={"checkbox"} required></input>i understand that this
-            will be saved
+            <input type={"checkbox"} onChange={handleCheckboxChange} required />{" "}
+            I understand that this will be saved for the next times
           </p>
         ) : (
-          chosenDate?.toDateString()
+          `Changes will be only saved for ${chosenDate?.toDateString()}`
         )}
         <br />
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+          disabled={screentype === "fixed" ? !isChecked : false}
+        >
           Submit
         </Button>
+        {message && <div>{message}</div>}
       </Card>
-      {message && <div>{message}</div>}
     </Box>
   );
 };

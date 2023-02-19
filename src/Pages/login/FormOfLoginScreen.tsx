@@ -38,7 +38,7 @@ export const FormOfLoginScreen: FunctionComponent = () => {
   };
   return (
     <Box sx={{ p: 2 }}>
-      <Typography variant="h4">Hey {usertype}, please sign in</Typography>
+      <h1>Hey {usertype === "child" ? "parent" : usertype}, please sign in</h1>
       <Box
         component="form"
         onSubmit={handleForm}

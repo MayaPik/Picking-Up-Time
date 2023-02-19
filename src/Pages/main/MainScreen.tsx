@@ -6,7 +6,7 @@ import { GuideScreen } from "./GuideScreen";
 import { useStore } from "../../store";
 import { Box, Chip, Button } from "@mui/material";
 import FaceIcon from "@mui/icons-material/Face";
-
+import "./mainscreen.css";
 export const MainScreen: React.FC = () => {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);

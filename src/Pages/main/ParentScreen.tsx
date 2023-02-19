@@ -1,9 +1,4 @@
-import {
-  Box,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from "@mui/material";
+import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { PickingUpComponent } from "../../Components/PickingUpComponent";
 import { useParentStore, useStore } from "../../store";
 
@@ -23,19 +18,15 @@ export const ParentScreen: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h3" gutterBottom>
-        Hello Parent of {user?.first_name}
-      </Typography>
+      <h1>Hello Parent of {user?.first_name}</h1>
 
       {screentype === "fixed" ? (
-        <Typography variant="h5" gutterBottom>
+        <h3>
           Are there any days you want to pick {user?.first_name} in the same
           hour?
-        </Typography>
+        </h3>
       ) : (
-        <Typography variant="h5" gutterBottom>
-          Welcome Back! When do you want to pick up {user?.first_name}?{" "}
-        </Typography>
+        <h3>Welcome Back! When do you want to pick up {user?.first_name}? </h3>
       )}
       <ToggleButtonGroup
         color="primary"
