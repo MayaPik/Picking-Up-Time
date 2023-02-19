@@ -10,6 +10,7 @@ interface Child {
   first_name: string;
   last_name: string;
   class: number;
+  time?: string;
 }
 
 interface HourData {
@@ -63,7 +64,7 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
     };
 
     getChildrenList();
-  }, [hour, user, todayDate, dayOfWeek, backend, usertype]);
+  }, [hour, user, todayDate, dayOfWeek, backend, usertype, childrenOfHour]);
 
   useEffect(() => {
     const classIdToName = async (id: number): Promise<string> => {
@@ -110,8 +111,9 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
               {childrenOfHour.map((child: Child) => (
                 <li key={child.childid}>
                   <span>
-                    {child.first_name} {child.last_name}
+                    {child.first_name} {child.last_name} {child?.time}
                   </span>
+                  &nbsp;
                   <span>
                     {user.adminid ? classNames[child.class] || "" : ""}
                   </span>

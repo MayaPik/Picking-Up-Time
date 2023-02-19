@@ -40,3 +40,13 @@ export const useParentStore = create<ParentState>((set) => ({
   screentype: "ongoing",
   setScreentype: (screentype: string) => set({ screentype }),
 }));
+
+interface AdminState {
+  screentypeAdmin: string;
+  setScreentypeAdmin: (screentypeAdmin: string) => void;
+}
+
+export const useAdminState = create<AdminState>((set) => ({
+  screentypeAdmin: "main",
+  setScreentypeAdmin: (screentypeAdmin: string) => set({ screentypeAdmin }),
+}));
