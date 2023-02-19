@@ -18,12 +18,12 @@ export const AdminException: FunctionComponent = () => {
   const [timeValue, setTimeValue] = useState("");
   const [message, setMessage] = useState("");
 
-  const backend = useStore((state) => state.backend);
+  const server = useStore((state) => state.server);
 
   useEffect(() => {
     const getChildrenList = async () => {
       try {
-        let url = `${backend}/api/getAllChildren`;
+        let url = `${server}/api/getAllChildren`;
         const response = await fetch(url);
         const data = await response.json();
         if (data.message) {
@@ -37,7 +37,7 @@ export const AdminException: FunctionComponent = () => {
     };
 
     getChildrenList();
-  }, [backend]);
+  }, [server]);
 
   const handleTimeChange = (event: any) => {
     const inputTime = event.currentTarget.value;

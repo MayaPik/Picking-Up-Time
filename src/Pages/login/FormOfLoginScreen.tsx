@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "../../store";
 
 export const FormOfLoginScreen: FunctionComponent = () => {
-  const backend = useStore((state) => state.backend);
+  const server = useStore((state) => state.server);
   const usertype = useStore((state) => state.usertype);
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -14,7 +14,7 @@ export const FormOfLoginScreen: FunctionComponent = () => {
   const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await fetch(`${backend}/api/${usertype}/login`, {
+      const response = await fetch(`${server}/api/${usertype}/login`, {
         method: "POST",
         body: JSON.stringify({
           username: username,

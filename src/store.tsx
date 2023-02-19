@@ -1,7 +1,7 @@
 import create from "zustand";
 
 interface AppState {
-  backend: string;
+  server: string;
   user: { [key: string]: string };
   setUser: (user: {}) => void;
   usertype: string | null;
@@ -10,7 +10,7 @@ interface AppState {
 }
 
 export const useStore = create<AppState>((set) => ({
-  backend: "https://mayo-final-project.herokuapp.com",
+  server: "https://mayo-final-project.herokuapp.com",
   user: {},
   setUser: (user: {}) => set({ user }),
   usertype: localStorage.getItem("usertype"),

@@ -27,22 +27,24 @@ const hours = [
 ];
 
 export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
-  const backend = useStore((state) => state.backend);
+  const server = useStore((state) => state.server);
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);
   const dayOfWeek = useDateStore((state) => state.dayOfWeek);
   const today = useDateStore((state) => state.today);
-  const todayDate: string = `${today.getFullYear()}-${Number(
-    today.getMonth() + 1
-  )}-${today.getDate()}`;
+
   const [classNames, setClassNames] = useState<{ [key: number]: string }>({});
   const [message, setMessage] = useState("");
   const [childrenOfHour, setChildrenOfHour] = useState<Array<Child>>([]);
 
+  const todayDate: string = `${today.getFullYear()}-${Number(
+    today.getMonth() + 1
+  )}-${today.getDate()}`;
+
   useEffect(() => {
     const getChildrenList = async () => {
       try {
-        let url = `${backend}/api/getAllChildrenOfHour?day=${dayOfWeek}&time=${hour}&date=${todayDate}`;
+        let url = `${server}/api/getAllChildrenOfHour?day=${dayOfWeek}&time=${hour}&date=${todayDate}`;
         if (usertype === "guide") {
           url += `&guideid=${user.guideid}`;
         }
@@ -64,13 +66,13 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
     };
 
     getChildrenList();
-  }, [hour, user, todayDate, dayOfWeek, backend, usertype, childrenOfHour]);
+  }, [hour, user, todayDate, dayOfWeek, server, usertype, childrenOfHour]);
 
   useEffect(() => {
     const classIdToName = async (id: number): Promise<string> => {
       try {
         const response = await fetch(
-          `${backend}/api/getClassName?classid=${id}`
+          `${server}/api/getClassName?classid=${id}`
         );
         const data = await response.json();
         if (data.message) {
@@ -93,7 +95,7 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
       await Promise.all(classNamesPromises);
     };
     fetchClassNames();
-  }, [childrenOfHour, backend]);
+  }, [childrenOfHour, server]);
 
   return (
     <Box>

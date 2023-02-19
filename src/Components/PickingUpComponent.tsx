@@ -25,6 +25,7 @@ export const PickingUpComponent: React.FC = () => {
     );
     return targetDay;
   };
+
   return (
     <Box sx={{ width: 500 }}>
       <BottomNavigation
