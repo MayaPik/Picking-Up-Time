@@ -1,0 +1,47 @@
+.middle {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  justify-content: center;
+  margin: auto;
+}
+
+.card {
+  margin-top: 2em;
+  padding: 1em;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alert {
+  width: 30vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4em;
+}
+
+.each {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.childlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.childlist * {
+  margin-bottom: 2em;
+}

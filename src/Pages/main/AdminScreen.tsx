@@ -1,12 +1,9 @@
 import { useStore, useDateStore, useAdminState } from "../../store";
 import { BoxOfChildrenEachHour } from "../../Components/BoxOfChildrenEachHour";
-import {
-  Box,
-  Typography,
-  ToggleButtonGroup,
-  ToggleButton,
-} from "@mui/material";
+import { Box, ToggleButtonGroup, ToggleButton } from "@mui/material";
 import { AdminException } from "../../Components/AdminException";
+import kidsBackground2 from "../../Assests/Pictures/kidsBackground2.png";
+import "./mainscreen.css";
 
 export const AdminScreen: React.FC = () => {
   const user = useStore((state) => state.user);
@@ -26,39 +23,44 @@ export const AdminScreen: React.FC = () => {
 
   return (
     <Box>
-      <ToggleButtonGroup
-        color="primary"
-        value={screentypeAdmin}
-        exclusive
-        onChange={handleChange}
-        aria-label="Platform"
-      >
-        <ToggleButton value="main">Main</ToggleButton>
-        <ToggleButton value="else">Exceptions</ToggleButton>
-      </ToggleButtonGroup>
-
-      <Typography variant="h3" gutterBottom>
-        Hey Admin {user.first_name}
-      </Typography>
+      <h1 className="heading">Welcome Back {user.first_name}!</h1>
+      <div className="toggle">
+        <ToggleButtonGroup
+          color="primary"
+          value={screentypeAdmin}
+          exclusive
+          onChange={handleChange}
+          aria-label="Platform"
+        >
+          <ToggleButton value="main">Main Screen</ToggleButton>
+          <ToggleButton value="else">Enter a manual pickup time</ToggleButton>
+        </ToggleButtonGroup>
+      </div>
       {screentypeAdmin === "main" ? (
         <>
-          <Typography variant="h5" gutterBottom>
-            Schedule for {dayOfWeek}
-          </Typography>
-          <BoxOfChildrenEachHour hour={"00:00"} />
-          <BoxOfChildrenEachHour hour={"15:00"} />
-          <BoxOfChildrenEachHour hour={"15:30"} />
-          <BoxOfChildrenEachHour hour={"else"} />
+          <h3 className="heading">
+            Schedule for {dayOfWeek} {today.toDateString()}
+          </h3>
+          <div className="boxes">
+            <BoxOfChildrenEachHour hour={"00:00"} />
+            <BoxOfChildrenEachHour hour={"15:00"} />
+            <BoxOfChildrenEachHour hour={"15:30"} />
+            <BoxOfChildrenEachHour hour={"else"} />
+          </div>
         </>
       ) : screentypeAdmin === "else" ? (
         <>
-          <Typography variant="h5" gutterBottom>
-            Want to enter an Exception for &nbsp;
+          <h3 className="heading">
+            Want to enter an manual pickup time for &nbsp;
             {today.toDateString()} ?
-          </Typography>
+          </h3>
           <AdminException />
         </>
       ) : null}
+      <div className="boxes">
+        <img src={kidsBackground2} alt="" className="threeKidsRight" />
+        <img src={kidsBackground2} alt="" className="threeKidsLeft" />
+      </div>
     </Box>
   );
 };

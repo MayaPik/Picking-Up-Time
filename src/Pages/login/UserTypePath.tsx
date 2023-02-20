@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { useStore } from "../../store";
 import { Stack, Button } from "@mui/material";
-
+import "./login.css";
 export const UserTypePath: FunctionComponent = () => {
   const setUsertype = useStore((state) => state.setUsertype);
   const usertype = useStore((state) => state.usertype);
@@ -13,7 +13,7 @@ export const UserTypePath: FunctionComponent = () => {
   };
 
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack direction="row" spacing={2} className="buttons">
       <Button
         onClick={handleChange}
         variant={usertype === "child" ? "contained" : "outlined"}

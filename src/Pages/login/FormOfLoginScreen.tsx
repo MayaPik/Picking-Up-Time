@@ -1,7 +1,8 @@
 import { FunctionComponent, useState } from "react";
-import { Typography, TextField, Button, Box } from "@mui/material";
+import { Alert, TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../store";
+import "./login.css";
 
 export const FormOfLoginScreen: FunctionComponent = () => {
   const server = useStore((state) => state.server);
@@ -38,32 +39,40 @@ export const FormOfLoginScreen: FunctionComponent = () => {
   };
   return (
     <Box sx={{ p: 2 }}>
-      <h1>Hey {usertype === "child" ? "parent" : usertype}, please sign in</h1>
+      <h1 className="header">
+        Hey {usertype === "child" ? "parent" : usertype}, please sign in
+      </h1>
       <Box
         component="form"
         onSubmit={handleForm}
-        sx={{ display: "flex", flexDirection: "column", mt: 2 }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          mt: 2,
+          alignItems: "center",
+        }}
       >
         <TextField
+          className="box"
           label="User Name"
           name="username"
           variant="outlined"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          sx={{ m: 5 }}
         />
         <TextField
+          className="box"
           label="Password"
           type="password"
           variant="outlined"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          sx={{ m: 5 }}
+          sx={{ mt: 2 }}
         />
-        <Button type="submit" variant="contained" sx={{ m: 5 }}>
+        <Button type="submit" variant="contained" sx={{ m: 3 }}>
           Sign In
         </Button>
-        {error && <Typography color="error">{error}</Typography>}
+        {error && <Alert severity="error">{error}</Alert>}
       </Box>
     </Box>
   );

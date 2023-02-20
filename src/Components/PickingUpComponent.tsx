@@ -1,9 +1,8 @@
 import { useState } from "react";
-import Box from "@mui/material/Box";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import { Box, BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { BoxOfOptions } from "./BoxOfOptions";
 import { useParentStore, useDateStore } from "../store";
+import "./components.css";
 
 export const PickingUpComponent: React.FC = () => {
   const screentype = useParentStore((state) => state.screentype);
@@ -27,8 +26,9 @@ export const PickingUpComponent: React.FC = () => {
   };
 
   return (
-    <Box sx={{ width: 500 }}>
+    <Box className="middle">
       <BottomNavigation
+        sx={{ backgroundColor: "whitesmoke" }}
         showLabels
         value={chosenDay}
         onChange={(event: any, newValue: string) => {

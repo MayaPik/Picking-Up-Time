@@ -1,7 +1,7 @@
 import { FunctionComponent, useState, useEffect } from "react";
-import { Autocomplete, Box, TextField, Button } from "@mui/material";
+import { Autocomplete, Box, TextField, Button, Alert } from "@mui/material";
 import { useStore, useDateStore } from "../store";
-
+import "./components.css";
 interface Child {
   childid: number;
   first_name: string;
@@ -17,6 +17,7 @@ export const AdminException: FunctionComponent = () => {
   const today = useDateStore((state) => state.today);
   const [timeValue, setTimeValue] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const server = useStore((state) => state.server);
 
@@ -64,50 +65,67 @@ export const AdminException: FunctionComponent = () => {
         if (response.ok) {
           setMessage("Data updated successfully.");
         } else {
-          setMessage("not a valid time, please write - HH:MM");
+          setError("not a valid time, please write - HH:MM");
         }
       } catch (err) {
-        setMessage("not a valid time, please write - HH:MM");
+        setError("not a valid time, please write - HH:MM");
       }
     }
   };
   return (
     <Box>
-      {ListOfChildren && (
-        <Autocomplete
-          disablePortal
-          value={childChosen}
-          onChange={(event: any, newValue: Child | null) => {
-            setchildChosen(newValue);
-          }}
-          id="autocomplete"
-          options={ListOfChildren}
-          getOptionLabel={(child) => child.first_name + " " + child.last_name}
-          isOptionEqualToValue={(option, value) =>
-            option.childid === value.childid
-          }
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField {...params} label="Choose a child" />
-          )}
-        />
-      )}
-      {childChosen !== null && (
-        <>
-          <TextField
-            required
-            label="Required"
-            value={timeValue}
-            onChange={handleTimeChange}
-            inputProps={{
-              inputMode: "numeric",
-              pattern: "^1[2-5]:[0-5]\\d$",
-              maxLength: 5,
+      <div className="childlist">
+        {ListOfChildren && (
+          <Autocomplete
+            disablePortal
+            value={childChosen}
+            onChange={(event: any, newValue: Child | null) => {
+              setchildChosen(newValue);
             }}
+            id="autocomplete"
+            options={ListOfChildren}
+            getOptionLabel={(child) => child.first_name + " " + child.last_name}
+            isOptionEqualToValue={(option, value) =>
+              option.childid === value.childid
+            }
+            sx={{ width: 500 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Choose a child" />
+            )}
           />
-          <Button onClick={handleSubmit}>Submit</Button>
-          {message && <p>{message}</p>}
-        </>
+        )}
+
+        {childChosen !== null && (
+          <>
+            <TextField
+              sx={{ width: 200 }}
+              required
+              label="Required Pickup Time"
+              placeholder="HH:MM"
+              value={timeValue}
+              onChange={handleTimeChange}
+              inputProps={{
+                inputMode: "numeric",
+                pattern: "^1[2-5]:[0-5]\\d$",
+                maxLength: 5,
+              }}
+            />
+            <Button variant="contained" onClick={handleSubmit}>
+              Submit
+            </Button>
+          </>
+        )}
+      </div>
+
+      {message && (
+        <Alert severity="success" className="alert">
+          {message}
+        </Alert>
+      )}
+      {error && (
+        <Alert severity="error" className="alert">
+          {error}
+        </Alert>
       )}
     </Box>
   );

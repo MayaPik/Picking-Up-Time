@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Card } from "@mui/material";
+import { Box, Card } from "@mui/material";
 import { useStore, useDateStore } from "../store";
 
 interface TimeProps {
@@ -99,15 +99,15 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
 
   return (
     <Box>
-      <Card>
-        <Box>
-          <Typography variant="h3" gutterBottom>
+      <Card sx={{ backgroundColor: "whitesmoke" }}>
+        <Box className="each">
+          <h1 className="head">
             {hours
               .filter((each) => each.time === hour)
               .map((hour) => hour.string)}{" "}
-          </Typography>
+          </h1>
           {childrenOfHour.length === 0 ? (
-            ""
+            <p>{message}</p>
           ) : (
             <ul>
               {childrenOfHour.map((child: Child) => (
@@ -124,7 +124,6 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
             </ul>
           )}
         </Box>
-        {message && <p>{message}</p>}
       </Card>
     </Box>
   );

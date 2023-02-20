@@ -9,7 +9,9 @@ import {
   FormControl,
   Select,
   SelectChangeEvent,
+  Alert,
 } from "@mui/material";
+import "./components.css";
 interface LoginScreenProps {
   chosenDay: string;
   chosenDate: Date;
@@ -27,6 +29,8 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
 }) => {
   const [pickingUpTime, setPickingUpTime] = useState<string | null>("15:00");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
   const user = useStore((state) => state.user);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -67,20 +71,33 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
         }
       );
       if (response.ok) {
-        setMessage("Data updated successfully.");
+        setMessage(
+          `Data updated successfully. for ${
+            chosenDay +
+            ", " +
+            (screentype === "ongoing" ? chosenDate.toDateString() : "") +
+            " time: " +
+            options.find((option) => option.value === pickingUpTime)?.name
+          } `
+        );
       } else {
-        setMessage("Error updating data.");
+        setError("Error updating data.");
       }
     } catch (err) {
-      setMessage("Error updating data.");
+      setError("Error updating data.");
     }
   };
 
   return (
     <Box>
-      <Card>
+      <Card className="card" sx={{ backgroundColor: "whitesmoke" }}>
+        {screentype === "ongoing" ? (
+          <p>Changes will be only saved for {chosenDate?.toDateString()}</p>
+        ) : (
+          <p></p>
+        )}
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Pickup time</InputLabel>
+          <InputLabel id="pickpuptime">Pickup time</InputLabel>
           <Select
             value={pickingUpTime || ""}
             onChange={handleChange}
@@ -100,7 +117,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
             I understand that this will be saved for the next times
           </p>
         ) : (
-          `Changes will be only saved for ${chosenDate?.toDateString()}`
+          ""
         )}
         <br />
         <Button
@@ -111,8 +128,17 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
         >
           Submit
         </Button>
-        {message && <div>{message}</div>}
       </Card>
+      {message && (
+        <Alert severity="success" className="alert">
+          {message}
+        </Alert>
+      )}
+      {error && (
+        <Alert severity="error" className="alert">
+          {error}
+        </Alert>
+      )}
     </Box>
   );
 };
