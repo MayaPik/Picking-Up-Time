@@ -94,6 +94,9 @@ export const MainScreen: React.FC = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} autoFocus>
+              Cancel
+            </Button>
+            <Button onClick={handleClose} autoFocus>
               Agree
             </Button>
           </DialogActions>

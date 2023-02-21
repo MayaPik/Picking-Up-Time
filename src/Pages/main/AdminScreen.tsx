@@ -57,7 +57,7 @@ export const AdminScreen: React.FC = () => {
           <AdminException />
         </>
       ) : null}
-      <div className="boxes">
+      <div className="group">
         <img src={kidsBackground2} alt="" className="threeKidsRight" />
         <img src={kidsBackground2} alt="" className="threeKidsLeft" />
       </div>

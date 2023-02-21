@@ -21,8 +21,10 @@ export const ParentScreen: React.FC = () => {
   return (
     <Box>
       <h1 className="heading">
-        Welcome Back, Parent of {user?.first_name} &nbsp;{" "}
-        <Diversity1Icon fontSize="large" />
+        Welcome Back, Parent of {user?.first_name} &nbsp;
+        <span className="show">
+          <Diversity1Icon fontSize="large" />
+        </span>
       </h1>
       <div className="toggle">
         <ToggleButtonGroup
@@ -53,8 +55,10 @@ export const ParentScreen: React.FC = () => {
       )}
 
       <PickingUpComponent />
-      <img src={kidsBackground2} alt="" className="threeKidsRight" />
-      <img src={kidsBackground2} alt="" className="threeKidsLeft" />
+      <div className="group">
+        <img src={kidsBackground2} alt="" className="threeKidsRight" />
+        <img src={kidsBackground2} alt="" className="threeKidsLeft" />
+      </div>
     </Box>
   );
 };

@@ -19,6 +19,9 @@ export const GuideScreen: React.FC = () => {
         <BoxOfChildrenEachHour hour={"15:00"} />
         <BoxOfChildrenEachHour hour={"15:30"} />
         <BoxOfChildrenEachHour hour={"else"} />
+      </div>
+
+      <div className="group">
         <img src={kidsBackground2} alt="" className="threeKidsRight" />
         <img src={kidsBackground2} alt="" className="threeKidsLeft" />
       </div>

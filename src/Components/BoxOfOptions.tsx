@@ -50,6 +50,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
     let timeValue: string | null = pickingUpTime;
     if (pickingUpTime === "after_hours") {
       timeValue = null;
@@ -113,7 +114,12 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
 
         {screentype === "fixed" ? (
           <p>
-            <input type={"checkbox"} onChange={handleCheckboxChange} required />{" "}
+            <input
+              type={"checkbox"}
+              onChange={handleCheckboxChange}
+              checked={isChecked}
+              required
+            />
             I understand that this will be saved for the next times
           </p>
         ) : (

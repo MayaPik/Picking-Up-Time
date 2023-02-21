@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Card } from "@mui/material";
 import { useStore, useDateStore } from "../store";
-
+import "./components.css";
 interface TimeProps {
   hour: string;
 }
@@ -98,33 +98,29 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
   }, [childrenOfHour, server]);
 
   return (
-    <Box>
-      <Card sx={{ backgroundColor: "whitesmoke" }}>
-        <Box className="each">
-          <h1 className="head">
-            {hours
-              .filter((each) => each.time === hour)
-              .map((hour) => hour.string)}{" "}
-          </h1>
-          {childrenOfHour.length === 0 ? (
-            <p>{message}</p>
-          ) : (
-            <ul>
-              {childrenOfHour.map((child: Child) => (
-                <li key={child.childid}>
-                  <span>
-                    {child.first_name} {child.last_name} {child?.time}
-                  </span>
-                  &nbsp;
-                  <span>
-                    {user.adminid ? classNames[child.class] || "" : ""}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </Box>
-      </Card>
-    </Box>
+    <Card>
+      <Box className="each">
+        <h1 className="head">
+          {hours
+            .filter((each) => each.time === hour)
+            .map((hour) => hour.string)}{" "}
+        </h1>
+        {childrenOfHour.length === 0 ? (
+          <p>{message}</p>
+        ) : (
+          <ul>
+            {childrenOfHour.map((child: Child) => (
+              <li key={child.childid}>
+                <span>
+                  {child.first_name} {child.last_name} {child?.time}
+                </span>
+                &nbsp;
+                <span>{user.adminid ? classNames[child.class] || "" : ""}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Box>
+    </Card>
   );
 };

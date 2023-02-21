@@ -1,7 +1,7 @@
 .middle {
   display: flex;
   flex-direction: column;
-  width: 40vw;
+  width: fit-content;
   justify-content: center;
   margin: auto;
 }
@@ -9,16 +9,16 @@
 .card {
   margin-top: 2em;
   padding: 1em;
-  width: 30vw;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .alert {
-  width: 30vw;
+  width: 25em;
   margin-left: auto;
   margin-right: auto;
   margin-top: 4em;
