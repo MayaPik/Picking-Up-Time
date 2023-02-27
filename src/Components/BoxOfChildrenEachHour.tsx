@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Card } from "@mui/material";
 import { useStore, useDateStore } from "../store";
 import "./components.css";
+
 interface TimeProps {
   hour: string;
 }
@@ -66,7 +67,7 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
     };
 
     getChildrenList();
-  }, [hour, user, todayDate, dayOfWeek, server, usertype, childrenOfHour]);
+  }, [hour, user, todayDate, dayOfWeek, server, usertype]);
 
   useEffect(() => {
     const classIdToName = async (id: number): Promise<string> => {

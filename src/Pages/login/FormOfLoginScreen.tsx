@@ -24,10 +24,11 @@ export const FormOfLoginScreen: FunctionComponent = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
       const data = await response.json();
       if (data.message) {
-        localStorage.setItem("user", JSON.stringify(data.data.user));
+        console.log(data);
         navigate("/main");
       } else {
         setError(data.error_message);
