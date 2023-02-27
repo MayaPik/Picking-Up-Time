@@ -16,6 +16,7 @@ export const FormOfLoginScreen: FunctionComponent = () => {
     event.preventDefault();
     try {
       const response = await fetch(`${server}/api/${usertype}/login`, {
+        credentials: "include",
         method: "POST",
         body: JSON.stringify({
           username: username,
@@ -24,12 +25,11 @@ export const FormOfLoginScreen: FunctionComponent = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
       });
       const data = await response.json();
       if (data.message) {
         console.log(data);
-        navigate("/main");
+        // navigate("/main");
       } else {
         setError(data.error_message);
       }
