@@ -25,6 +25,15 @@ export const MainScreen: React.FC = () => {
   const setUser = useStore((state) => state.setUser);
   const usertype = useStore((state) => state.usertype);
 
+  const userCookie = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("user="));
+
+  if (userCookie) {
+    const user = JSON.parse(userCookie.split("=")[1]);
+    console.log(user);
+  }
+
   // useEffect(() => {
   //   const user = localStorage.getItem("user");
   //   if (user !== null) {
