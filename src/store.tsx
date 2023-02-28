@@ -13,7 +13,7 @@ export const useStore = create<AppState>((set) => ({
   server: "https://mayo-final-project.herokuapp.com",
   user: {},
   setUser: (user: {}) => set({ user }),
-  usertype: localStorage.getItem("usertype"),
+  usertype: "guide",
   setUsertype: (usertype: string | null) => set({ usertype }),
   isLoggedIn: false,
 }));

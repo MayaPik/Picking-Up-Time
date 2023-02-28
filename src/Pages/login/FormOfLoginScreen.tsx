@@ -16,8 +16,9 @@ export const FormOfLoginScreen: FunctionComponent = () => {
     event.preventDefault();
     try {
       const response = await fetch(`${server}/api/${usertype}/login`, {
-        credentials: "include",
         method: "POST",
+        credentials: "include",
+
         body: JSON.stringify({
           username: username,
           password: password,
