@@ -15,18 +15,21 @@ export const FormOfLoginScreen: FunctionComponent = () => {
   const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await fetch(`${server}/api/${usertype}/login`, {
-        method: "POST",
-        credentials: "include",
+      const response = await fetch(
+        "http://backend.pickinguptime.com/api/guide/login",
+        {
+          method: "POST",
+          credentials: "include",
 
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       if (data.message) {
         console.log(data);
