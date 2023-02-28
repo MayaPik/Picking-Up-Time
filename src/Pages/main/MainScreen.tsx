@@ -25,21 +25,21 @@ export const MainScreen: React.FC = () => {
   const setUser = useStore((state) => state.setUser);
   const usertype = useStore((state) => state.usertype);
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user !== null) {
-      setUser(JSON.parse(user));
-    }
-  }, [setUser]);
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user");
+  //   if (user !== null) {
+  //     setUser(JSON.parse(user));
+  //   }
+  // }, [setUser]);
 
-  useEffect(() => {
-    const checkUser = () => {
-      if (!localStorage.getItem("user")) {
-        navigate("/");
-      }
-    };
-    checkUser();
-  }, [navigate]);
+  // useEffect(() => {
+  //   const checkUser = () => {
+  //     if (!localStorage.getItem("user")) {
+  //       navigate("/");
+  //     }
+  //   };
+  //   checkUser();
+  // }, [navigate]);
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
@@ -52,8 +52,8 @@ export const MainScreen: React.FC = () => {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("usertype");
+    // localStorage.removeItem("user");
+    // localStorage.removeItem("usertype");
     navigate("/");
   };
 

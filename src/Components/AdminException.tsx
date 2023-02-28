@@ -15,11 +15,11 @@ export const AdminException: FunctionComponent = () => {
   const [childChosen, setchildChosen] = useState<Child | null>(null);
   const dayOfWeek = useDateStore((state) => state.dayOfWeek);
   const today = useDateStore((state) => state.today);
+  const server = useStore((state) => state.server);
+
   const [timeValue, setTimeValue] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-
-  const server = useStore((state) => state.server);
 
   useEffect(() => {
     const getChildrenList = async () => {
@@ -47,21 +47,18 @@ export const AdminException: FunctionComponent = () => {
   const handleSubmit = async () => {
     if (/^1[2-5]:[0-5]\d$/.test(timeValue)) {
       try {
-        const response = await fetch(
-          `https://mayo-final-project.herokuapp.com/api/updateongoingtimes`,
-          {
-            method: "POST",
-            body: JSON.stringify({
-              childid: childChosen?.childid,
-              day: dayOfWeek,
-              time: timeValue,
-              date: today.toDateString(),
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch(`${server}/api/updateongoingtimes`, {
+          method: "POST",
+          body: JSON.stringify({
+            childid: childChosen?.childid,
+            day: dayOfWeek,
+            time: timeValue,
+            date: today.toDateString(),
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         if (response.ok) {
           setMessage("Data updated successfully.");
         } else {
