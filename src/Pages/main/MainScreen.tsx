@@ -22,10 +22,11 @@ import "./mainscreen.css";
 function getCookie(name: string | number) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) {
-    return parts.pop().split(";").shift();
+  if (parts.length === 2 && parts) {
+    return parts.pop()?.split(";").shift();
   }
 }
+
 export const MainScreen: React.FC = () => {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
