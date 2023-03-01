@@ -19,19 +19,6 @@ import {
 import FaceIcon from "@mui/icons-material/Face";
 import "./mainscreen.css";
 
-function getCookie(name: string | number) {
-  const value = `; ${document.cookie}`;
-  console.log("value" + value);
-  const encodedName = encodeURIComponent(name.toString());
-  const parts = value.split(`; ${encodedName}=`);
-  if (parts.length === 2) {
-    const encodedValue = parts.pop()?.split(";").shift();
-    if (encodedValue) {
-      return decodeURIComponent(encodedValue);
-    }
-  }
-}
-
 export const MainScreen: React.FC = () => {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
@@ -41,27 +28,23 @@ export const MainScreen: React.FC = () => {
   const setIsLoggedIn = useStore((state) => state.setIsLoogedIn);
 
   useEffect(() => {
-    const sessionId = getCookie("connect.sid");
-    console.log(sessionId + "id");
-    if (sessionId) {
-      fetch("/api/user", {
-        credentials: "include",
+    fetch("/api/user", {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        console.log(user);
+        setUser(user);
+        setIsLoggedIn(true);
+        // if (user.adminid) {
+        //   setUsertype("admin");
+        // } else if (user.childid) {
+        //   setUsertype("child");
+        // } else if (user.guideid) {
+        //   setUsertype("guide");
+        // }
       })
-        .then((response) => response.json())
-        .then((user) => {
-          setUser(user);
-          setIsLoggedIn(true);
-          if (user.adminid) {
-            setUsertype("admin");
-          } else if (user.childid) {
-            setUsertype("child");
-          } else if (user.guideid) {
-            setUsertype("guide");
-          }
-        })
-        .catch((error) => console.log(error));
-    } else {
-    }
+      .catch((error) => console.log(error));
   }, [setUser, navigate, setUsertype, setIsLoggedIn]);
 
   const PageDisplay: React.FC = () => {
