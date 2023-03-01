@@ -9,9 +9,6 @@ function App() {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      useStore.setState({ isLoggedIn: true });
-    }
     const checkUser = () => {
       if (isLoggedIn && window.location.pathname === "/") {
         window.location.href = "/main";
@@ -19,6 +16,7 @@ function App() {
     };
     checkUser();
   }, [isLoggedIn]);
+
   return (
     <Router>
       <Routes>

@@ -7,15 +7,17 @@ interface AppState {
   usertype: string | null;
   setUsertype: (usertype: string | null) => void;
   isLoggedIn: boolean;
+  setIsLoogedIn: (isLoggedin: boolean) => void;
 }
 
 export const useStore = create<AppState>((set) => ({
   server: "https://backend.pickinguptime.com",
   user: {},
   setUser: (user: {}) => set({ user }),
-  usertype: "guide",
+  usertype: null,
   setUsertype: (usertype: string | null) => set({ usertype }),
   isLoggedIn: false,
+  setIsLoogedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),
 }));
 
 interface DateState {

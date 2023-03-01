@@ -19,27 +19,44 @@ import {
 import FaceIcon from "@mui/icons-material/Face";
 import "./mainscreen.css";
 
+function getCookie(name: string | number) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    return parts.pop().split(";").shift();
+  }
+}
 export const MainScreen: React.FC = () => {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
   const usertype = useStore((state) => state.usertype);
+  const setUsertype = useStore((state) => state.setUsertype);
+  const setIsLoggedIn = useStore((state) => state.setIsLoogedIn);
 
-  // useEffect(() => {
-  //   const user = localStorage.getItem("user");
-  //   if (user !== null) {
-  //     setUser(JSON.parse(user));
-  //   }
-  // }, [setUser]);
-
-  // useEffect(() => {
-  //   const checkUser = () => {
-  //     if (!localStorage.getItem("user")) {
-  //       navigate("/");
-  //     }
-  //   };
-  //   checkUser();
-  // }, [navigate]);
+  useEffect(() => {
+    const sessionId = getCookie("session_id");
+    if (sessionId) {
+      fetch("/api/user", {
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((user) => {
+          setUser(user);
+          setIsLoggedIn(true);
+          if (user.adminid) {
+            setUsertype("admin");
+          } else if (user.childid) {
+            setUsertype("child");
+          } else if (user.guideid) {
+            setUsertype("guide");
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      navigate("/");
+    }
+  }, [setUser, navigate, setUsertype, setIsLoggedIn]);
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
@@ -50,11 +67,10 @@ export const MainScreen: React.FC = () => {
       return <AdminScreen />;
     }
   };
-
   const handleSignOut = () => {
-    // localStorage.removeItem("user");
-    // localStorage.removeItem("usertype");
-    navigate("/");
+    fetch("/api/logout", { method: "POST", credentials: "include" })
+      .then(() => setIsLoggedIn(false))
+      .catch((error) => console.error(error));
   };
 
   const [open, setOpen] = useState(false);

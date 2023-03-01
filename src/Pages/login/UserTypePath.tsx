@@ -9,7 +9,6 @@ export const UserTypePath: FunctionComponent = () => {
   const handleChange = (event: React.MouseEvent<HTMLButtonElement>) => {
     const userType = event.currentTarget.value;
     setUsertype(userType);
-    localStorage.setItem("usertype", userType);
   };
 
   return (

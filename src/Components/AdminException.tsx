@@ -48,6 +48,8 @@ export const AdminException: FunctionComponent = () => {
     if (/^1[2-5]:[0-5]\d$/.test(timeValue)) {
       try {
         const response = await fetch(`${server}/api/updateongoingtimes`, {
+          credentials: "include",
+
           method: "POST",
           body: JSON.stringify({
             childid: childChosen?.childid,
