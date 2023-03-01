@@ -10,7 +10,7 @@ interface AppState {
 }
 
 export const useStore = create<AppState>((set) => ({
-  server: "http://backend.pickinguptime.com",
+  server: "https://backend.pickinguptime.com",
   user: {},
   setUser: (user: {}) => set({ user }),
   usertype: "guide",
