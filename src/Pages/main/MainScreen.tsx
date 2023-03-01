@@ -21,9 +21,14 @@ import "./mainscreen.css";
 
 function getCookie(name: string | number) {
   const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2 && parts) {
-    return parts.pop()?.split(";").shift();
+  console.log("value" + value);
+  const encodedName = encodeURIComponent(name.toString());
+  const parts = value.split(`; ${encodedName}=`);
+  if (parts.length === 2) {
+    const encodedValue = parts.pop()?.split(";").shift();
+    if (encodedValue) {
+      return decodeURIComponent(encodedValue);
+    }
   }
 }
 
@@ -36,7 +41,8 @@ export const MainScreen: React.FC = () => {
   const setIsLoggedIn = useStore((state) => state.setIsLoogedIn);
 
   useEffect(() => {
-    const sessionId = getCookie("session_id");
+    const sessionId = getCookie("connect.sid");
+    console.log(sessionId + "id");
     if (sessionId) {
       fetch("/api/user", {
         credentials: "include",
@@ -55,7 +61,6 @@ export const MainScreen: React.FC = () => {
         })
         .catch((error) => console.log(error));
     } else {
-      navigate("/");
     }
   }, [setUser, navigate, setUsertype, setIsLoggedIn]);
 
