@@ -26,9 +26,10 @@ export const MainScreen: React.FC = () => {
   const usertype = useStore((state) => state.usertype);
   const setUsertype = useStore((state) => state.setUsertype);
   const setIsLoggedIn = useStore((state) => state.setIsLoogedIn);
+  const server = useStore((state) => state.server);
 
   useEffect(() => {
-    fetch("/api/user", {
+    fetch(`${server}/api/user`, {
       credentials: "include",
     })
       .then((response) => response.json())
@@ -45,7 +46,7 @@ export const MainScreen: React.FC = () => {
         }
       })
       .catch((error) => console.log(error));
-  }, [setUser, navigate, setUsertype, setIsLoggedIn]);
+  }, [setUser, navigate, setUsertype, setIsLoggedIn, server]);
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
