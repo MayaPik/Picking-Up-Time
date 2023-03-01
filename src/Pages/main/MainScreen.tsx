@@ -36,13 +36,13 @@ export const MainScreen: React.FC = () => {
         console.log(user);
         setUser(user);
         setIsLoggedIn(true);
-        // if (user.adminid) {
-        //   setUsertype("admin");
-        // } else if (user.childid) {
-        //   setUsertype("child");
-        // } else if (user.guideid) {
-        //   setUsertype("guide");
-        // }
+        if (user.adminid) {
+          setUsertype("admin");
+        } else if (user.childid) {
+          setUsertype("child");
+        } else if (user.guideid) {
+          setUsertype("guide");
+        }
       })
       .catch((error) => console.log(error));
   }, [setUser, navigate, setUsertype, setIsLoggedIn]);
