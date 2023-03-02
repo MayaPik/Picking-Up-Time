@@ -41,13 +41,13 @@ function App() {
         window.location.href = "/main";
       }
     };
-    const checkUserLoggedOut = () => {
-      if (isLoggedIn === false && window.location.pathname !== "/") {
-        window.location.href = "/";
-      }
-    };
+    // const checkUserLoggedOut = () => {
+    //   if (isLoggedIn === false && window.location.pathname !== "/") {
+    //     window.location.href = "/";
+    //   }
+    // };
     checkUserLoggedIn();
-    checkUserLoggedOut();
+    // checkUserLoggedOut();
   }, [isLoggedIn]);
 
   return (
