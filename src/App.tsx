@@ -13,7 +13,8 @@ function App() {
       if (isLoggedIn && window.location.pathname === "/") {
         window.location.href = "/main";
       } else if (!isLoggedIn && window.location.pathname !== "/") {
-        window.location.href = "/";
+        console.log(isLoggedIn);
+        //window.location.href = "/";
       }
     };
     checkUser();
