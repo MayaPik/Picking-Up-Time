@@ -34,7 +34,7 @@ export const MainScreen: React.FC = () => {
 
   useEffect(() => {
     fetch(`${server}/api/user`, {
-      credentials: "include",
+      // credentials: "include",
     })
       .then((response) => response.json())
       .then((user) => {
