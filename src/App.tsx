@@ -12,7 +12,7 @@ function App() {
     const checkUser = () => {
       if (isLoggedIn && window.location.pathname === "/") {
         window.location.href = "/main";
-      } else if (!isLoggedIn) {
+      } else if (!isLoggedIn && window.location.pathname !== "/") {
         window.location.href = "/";
       }
     };
