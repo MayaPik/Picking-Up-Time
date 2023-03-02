@@ -6,9 +6,37 @@ import { MainScreen } from "./Pages/main/MainScreen";
 import { useStore } from "./store";
 import "./App.css";
 
-function App() {
+const App: React.FC = () => {
   const navigate = useNavigate();
+  const server = useStore((state) => state.server);
+  const setUser = useStore((state) => state.setUser);
+  const setUsertype = useStore((state) => state.setUsertype);
   const isLoggedIn = useStore((state) => state.isLoggedIn);
+  const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
+
+  useEffect(() => {
+    setUsertype(localStorage.getItem("usertype"));
+  }, [setUsertype]);
+
+  useEffect(() => {
+    fetch(`${server}/api/user`, {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        console.log(user);
+        setUser(user);
+        setIsLoggedIn(true);
+        if (user.adminid) {
+          setUsertype("admin");
+        } else if (user.childid) {
+          setUsertype("child");
+        } else if (user.guideid) {
+          setUsertype("guide");
+        }
+      })
+      .catch((error) => console.log(error));
+  }, [setUser, setUsertype, setIsLoggedIn, server]);
 
   useEffect(() => {
     const checkUser = () => {
@@ -29,6 +57,6 @@ function App() {
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
