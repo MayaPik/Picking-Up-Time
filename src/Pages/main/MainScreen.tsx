@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ParentScreen } from "./ParentScreen";
 import { AdminScreen } from "./AdminScreen";
 import { GuideScreen } from "./GuideScreen";
@@ -20,37 +19,10 @@ import FaceIcon from "@mui/icons-material/Face";
 import "./mainscreen.css";
 
 export const MainScreen: React.FC = () => {
-  const navigate = useNavigate();
   const user = useStore((state) => state.user);
-  const setUser = useStore((state) => state.setUser);
   const usertype = useStore((state) => state.usertype);
-  const setUsertype = useStore((state) => state.setUsertype);
-  const setIsLoggedIn = useStore((state) => state.setIsLoogedIn);
+  const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
   const server = useStore((state) => state.server);
-
-  useEffect(() => {
-    setUsertype(localStorage.getItem("usertype"));
-  }, [setUsertype]);
-
-  useEffect(() => {
-    fetch(`${server}/api/user`, {
-      credentials: "include",
-    })
-      .then((response) => response.json())
-      .then((user) => {
-        console.log(user);
-        setUser(user);
-        setIsLoggedIn(true);
-        if (user.adminid) {
-          setUsertype("admin");
-        } else if (user.childid) {
-          setUsertype("child");
-        } else if (user.guideid) {
-          setUsertype("guide");
-        }
-      })
-      .catch((error) => console.log(error));
-  }, [setUser, navigate, setUsertype, setIsLoggedIn, server]);
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
@@ -63,7 +35,7 @@ export const MainScreen: React.FC = () => {
   };
 
   const handleSignOut = () => {
-    fetch("/api/logout", { method: "POST", credentials: "include" })
+    fetch(`${server}/api/logout`, { method: "POST", credentials: "include" })
       .then(() => setIsLoggedIn(false))
       .catch((error) => console.error(error));
   };
