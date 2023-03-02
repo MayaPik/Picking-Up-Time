@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ParentScreen } from "./ParentScreen";
 import { AdminScreen } from "./AdminScreen";
 import { GuideScreen } from "./GuideScreen";
@@ -21,8 +21,34 @@ import "./mainscreen.css";
 export const MainScreen: React.FC = () => {
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);
-  const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
   const server = useStore((state) => state.server);
+  const setUser = useStore((state) => state.setUser);
+  const setUsertype = useStore((state) => state.setUsertype);
+  const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
+
+  useEffect(() => {
+    setUsertype(localStorage.getItem("usertype"));
+  }, [setUsertype]);
+
+  useEffect(() => {
+    fetch(`${server}/api/user`, {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        console.log(user);
+        setUser(user);
+        setIsLoggedIn(true);
+        if (user.adminid) {
+          setUsertype("admin");
+        } else if (user.childid) {
+          setUsertype("child");
+        } else if (user.guideid) {
+          setUsertype("guide");
+        }
+      })
+      .catch((error) => console.log(error));
+  }, [setUser, setUsertype, setIsLoggedIn, server]);
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
