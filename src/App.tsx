@@ -36,15 +36,18 @@ function App() {
   }, [setUser, setUsertype, setIsLoggedIn, server]);
 
   useEffect(() => {
-    const checkUser = () => {
+    const checkUserLoggedIn = () => {
       if (isLoggedIn && window.location.pathname === "/") {
         window.location.href = "/main";
-      } else if (!isLoggedIn && window.location.pathname !== "/") {
-        console.log(isLoggedIn);
-        //window.location.href = "/";
       }
     };
-    checkUser();
+    const checkUserLoggedOut = () => {
+      if (isLoggedIn === false && window.location.pathname !== "/") {
+        window.location.href = "/";
+      }
+    };
+    checkUserLoggedIn();
+    checkUserLoggedOut();
   }, [isLoggedIn]);
 
   return (

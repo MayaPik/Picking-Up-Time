@@ -51,7 +51,9 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
         }
         let data: HourData = { message: "", data: [], error_message: "" };
         if (user.adminid || user.guideid) {
-          const response = await fetch(url);
+          const response = await fetch(url, {
+            credentials: "include",
+          }).then((response) => response.json());
           data = await response.json();
         }
         if (data.message) {
