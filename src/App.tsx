@@ -10,6 +10,17 @@ import { MainScreen } from "./Pages/main/MainScreen";
 import { useStore } from "./store";
 import "./App.css";
 
+const ProtectedRoute = React.memo(
+  ({ path, element }: { path: string; element: React.ReactNode }) => {
+    const isLoggedIn = useStore((state) => state.isLoggedIn);
+    if (isLoggedIn) {
+      return <Route path={path} element={element} />;
+    } else {
+      return <Navigate to="/" />;
+    }
+  }
+);
+
 function App() {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
   const server = useStore((state) => state.server);
@@ -35,18 +46,7 @@ function App() {
         }
       })
       .catch((error) => console.log(error));
-  }, [setUser, setUsertype, setIsLoggedIn, server]);
-
-  const ProtectedRoute: React.FC<{
-    path: string;
-    element: React.ReactNode;
-  }> = ({ path, element }) => {
-    if (isLoggedIn) {
-      return <Route path={path} element={element} />;
-    } else {
-      return <Navigate to="/" />;
-    }
-  };
+  }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn]);
 
   const handleLogout = () => {
     fetch(`${server}/api/logout`, {
