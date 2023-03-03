@@ -1,5 +1,10 @@
 import { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import { LoginScreen } from "./Pages/login/LoginScreen";
 import { MainScreen } from "./Pages/main/MainScreen";
 import { useStore } from "./store";
@@ -7,9 +12,6 @@ import "./App.css";
 
 function App() {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
-  // const user = useStore((state) => state.user);
-  // const usertype = useStore((state) => state.usertype);
-  // const navigate = useNavigate();
   const server = useStore((state) => state.server);
   const setUser = useStore((state) => state.setUser);
   const setUsertype = useStore((state) => state.setUsertype);
@@ -33,28 +35,40 @@ function App() {
         }
       })
       .catch((error) => console.log(error));
-  }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn]);
+  }, [setUser, setUsertype, setIsLoggedIn, server]);
 
-  useEffect(() => {
-    const checkUserLoggedIn = () => {
-      if (isLoggedIn && window.location.pathname === "/") {
-        window.location.href = "/main";
-      }
-    };
-    // const checkUserLoggedOut = () => {
-    //   if (isLoggedIn === false && window.location.pathname !== "/") {
-    //     window.location.href = "/";
-    //   }
-    // };
-    checkUserLoggedIn();
-    // checkUserLoggedOut();
-  }, [isLoggedIn]);
+  const ProtectedRoute: React.FC<{
+    path: string;
+    element: React.ReactNode;
+  }> = ({ path, element }) => {
+    if (isLoggedIn) {
+      return <Route path={path} element={element} />;
+    } else {
+      return <Navigate to="/" replace />;
+    }
+  };
+
+  const handleLogout = () => {
+    fetch(`${server}/api/logout`, {
+      method: "POST",
+      credentials: "include",
+    })
+      .then(() => {
+        setUser({});
+        setIsLoggedIn(false);
+        setUsertype(null);
+      })
+      .catch((error) => console.error(error));
+  };
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LoginScreen />} />
-        <Route path="/main" element={<MainScreen />}></Route>
+        <ProtectedRoute
+          path="/main"
+          element={<MainScreen onLogout={handleLogout} />}
+        />
       </Routes>
     </Router>
   );

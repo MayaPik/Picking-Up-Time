@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { ParentScreen } from "./ParentScreen";
 import { AdminScreen } from "./AdminScreen";
 import { GuideScreen } from "./GuideScreen";
@@ -19,18 +18,12 @@ import {
 import FaceIcon from "@mui/icons-material/Face";
 import "./mainscreen.css";
 
-export const MainScreen: React.FC = () => {
+interface Props {
+  onLogout: () => void;
+}
+export const MainScreen: React.FC<Props> = ({ onLogout: handleLogout }) => {
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);
-  // const navigate = useNavigate();
-  const server = useStore((state) => state.server);
-  // const setUser = useStore((state) => state.setUser);
-  const setUsertype = useStore((state) => state.setUsertype);
-  const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
-
-  useEffect(() => {
-    setUsertype(localStorage.getItem("usertype"));
-  }, [setUsertype]);
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
@@ -40,12 +33,6 @@ export const MainScreen: React.FC = () => {
     } else {
       return <AdminScreen />;
     }
-  };
-
-  const handleSignOut = () => {
-    fetch(`${server}/api/logout`, { method: "POST", credentials: "include" })
-      .then(() => setIsLoggedIn(false))
-      .catch((error) => console.error(error));
   };
 
   const [open, setOpen] = useState(false);
@@ -59,6 +46,7 @@ export const MainScreen: React.FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <Box>
       <div className="chip">
@@ -92,7 +80,7 @@ export const MainScreen: React.FC = () => {
             </Button>
           </DialogActions>
         </Dialog>
-        <Button onClick={handleSignOut}>SIGN OUT</Button>
+        <Button onClick={handleLogout}>SIGN OUT</Button>
       </div>
       <PageDisplay />
     </Box>
