@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { LoginScreen } from "./Pages/login/LoginScreen";
 import { MainScreen } from "./Pages/main/MainScreen";
 import { useStore } from "./store";
 import "./App.css";
 
 function App() {
+  const navigate = useNavigate();
   const isLoggedIn = useStore((state) => state.isLoggedIn);
   const server = useStore((state) => state.server);
   const setUser = useStore((state) => state.setUser);
@@ -21,6 +27,7 @@ function App() {
         setUser({});
         setIsLoggedIn(false);
         setUsertype(null);
+        navigate("/");
       })
       .catch((error) => console.error(error));
   };
@@ -47,7 +54,11 @@ function App() {
     } catch (error) {
       console.error(error);
     }
-  }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn]);
+
+    if (isLoggedIn && window.location.href === "/") {
+      navigate("/main");
+    }
+  }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn, navigate]);
 
   return (
     <Router>
