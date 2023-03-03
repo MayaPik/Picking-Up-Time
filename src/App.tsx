@@ -61,12 +61,12 @@ function App() {
   }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn, navigate]);
 
   return (
-    <Router>
+    <>
       <Routes>
         <Route path="/" element={<LoginScreen />} />
         <Route path="/main" element={<MainScreen onLogout={handleLogout} />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
