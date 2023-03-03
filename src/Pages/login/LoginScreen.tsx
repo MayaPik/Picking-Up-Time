@@ -3,6 +3,7 @@ import { UserTypePath } from "./UserTypePath";
 import { FormOfLoginScreen } from "./FormOfLoginScreen";
 import kidsBackground from "../../Assests/Pictures/kidsBackground.png";
 import "./login.css";
+
 export const LoginScreen: FunctionComponent = () => {
   return (
     <div>

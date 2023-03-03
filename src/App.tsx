@@ -10,20 +10,20 @@ import { MainScreen } from "./Pages/main/MainScreen";
 import { useStore } from "./store";
 import "./App.css";
 
-function ProtectedRoute({
-  path,
-  element,
-}: {
-  path: string;
-  element: React.ReactNode;
-}) {
-  const isLoggedIn = useStore((state) => state.isLoggedIn);
-  if (isLoggedIn) {
-    return <Route path={path} element={element} />;
-  } else {
-    return <Navigate to="/" />;
-  }
-}
+// function ProtectedRoute({
+//   path,
+//   element,
+// }: {
+//   path: string;
+//   element: React.ReactNode;
+// }) {
+//   const isLoggedIn = useStore((state) => state.isLoggedIn);
+//   if (isLoggedIn) {
+//     return <Route path={path} element={element} />;
+//   } else {
+//     return <Navigate to="/" />;
+//   }
+// }
 
 function App() {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
@@ -73,10 +73,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginScreen />} />
-        <ProtectedRoute
-          path="/main"
-          element={<MainScreen onLogout={handleLogout} />}
-        />
+        {/* <ProtectedRoute */}
+        <Route path="/main" element={<MainScreen onLogout={handleLogout} />} />
       </Routes>
     </Router>
   );
