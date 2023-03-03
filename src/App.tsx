@@ -12,6 +12,19 @@ function App() {
   const setUsertype = useStore((state) => state.setUsertype);
   const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
 
+  const handleLogout = () => {
+    fetch(`${server}/api/logout`, {
+      method: "POST",
+      credentials: "include",
+    })
+      .then(() => {
+        setUser({});
+        setIsLoggedIn(false);
+        setUsertype(null);
+      })
+      .catch((error) => console.error(error));
+  };
+
   useEffect(() => {
     try {
       fetch(`${server}/api/user`, {
@@ -40,7 +53,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginScreen />} />
-        <Route path="/main" element={<MainScreen />} />
+        <Route path="/main" element={<MainScreen onLogOut={handleLogout} />} />
       </Routes>
     </Router>
   );

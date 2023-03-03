@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
 import { ParentScreen } from "./ParentScreen";
 import { AdminScreen } from "./AdminScreen";
 import { GuideScreen } from "./GuideScreen";
@@ -19,26 +18,13 @@ import {
 import FaceIcon from "@mui/icons-material/Face";
 import "./mainscreen.css";
 
-export const MainScreen: React.FC = () => {
+interface props {
+  onLogout: () => void;
+}
+
+export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);
-  const server = useStore((state) => state.server);
-  const setUser = useStore((state) => state.setUser);
-  const setUsertype = useStore((state) => state.setUsertype);
-  const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
-
-  const handleLogout = () => {
-    fetch(`${server}/api/logout`, {
-      method: "POST",
-      credentials: "include",
-    })
-      .then(() => {
-        setUser({});
-        setIsLoggedIn(false);
-        setUsertype(null);
-      })
-      .catch((error) => console.error(error));
-  };
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
@@ -48,7 +34,7 @@ export const MainScreen: React.FC = () => {
     } else if (usertype === "admin") {
       return <AdminScreen />;
     } else {
-      return <Navigate to="/" />;
+      return <div>loading</div>;
     }
   };
 
