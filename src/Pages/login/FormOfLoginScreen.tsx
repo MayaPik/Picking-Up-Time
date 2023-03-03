@@ -28,7 +28,6 @@ export const FormOfLoginScreen: FunctionComponent = () => {
       });
       const data = await response.json();
       if (data.message) {
-        console.log(data);
         navigate("/main");
       } else {
         setError(data.error_message);
