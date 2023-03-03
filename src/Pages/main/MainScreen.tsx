@@ -29,16 +29,12 @@ export const MainScreen: React.FC<Props> = ({ onLogout: handleLogout }) => {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
 
   const PageDisplay: React.FC = () => {
-    if (isLoggedIn) {
-      if (usertype === "child") {
-        return <ParentScreen />;
-      } else if (usertype === "guide") {
-        return <GuideScreen />;
-      } else if (usertype === "admin") {
-        return <AdminScreen />;
-      } else {
-        return <Navigate to="/" />;
-      }
+    if (usertype === "child") {
+      return <ParentScreen />;
+    } else if (usertype === "guide") {
+      return <GuideScreen />;
+    } else if (usertype === "admin") {
+      return <AdminScreen />;
     } else {
       return <Navigate to="/" />;
     }
