@@ -26,7 +26,6 @@ interface Props {
 export const MainScreen: React.FC<Props> = ({ onLogout: handleLogout }) => {
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);
-  const isLoggedIn = useStore((state) => state.isLoggedIn);
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
