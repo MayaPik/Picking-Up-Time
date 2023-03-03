@@ -10,16 +10,20 @@ import { MainScreen } from "./Pages/main/MainScreen";
 import { useStore } from "./store";
 import "./App.css";
 
-const ProtectedRoute = React.memo(
-  ({ path, element }: { path: string; element: React.ReactNode }) => {
-    const isLoggedIn = useStore((state) => state.isLoggedIn);
-    if (isLoggedIn) {
-      return <Route path={path} element={element} />;
-    } else {
-      return <Navigate to="/" />;
-    }
+function ProtectedRoute({
+  path,
+  element,
+}: {
+  path: string;
+  element: React.ReactNode;
+}) {
+  const isLoggedIn = useStore((state) => state.isLoggedIn);
+  if (isLoggedIn) {
+    return <Route path={path} element={element} />;
+  } else {
+    return <Navigate to="/" />;
   }
-);
+}
 
 function App() {
   const isLoggedIn = useStore((state) => state.isLoggedIn);
@@ -27,6 +31,7 @@ function App() {
   const setUser = useStore((state) => state.setUser);
   const setUsertype = useStore((state) => state.setUsertype);
   const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
+
   useEffect(() => {
     try {
       fetch(`${server}/api/user`, {
