@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { ParentScreen } from "./ParentScreen";
 import { AdminScreen } from "./AdminScreen";
@@ -19,54 +19,26 @@ import {
 import FaceIcon from "@mui/icons-material/Face";
 import "./mainscreen.css";
 
-// interface Props {
-//   onLogout: () => void;
-// }
-
 export const MainScreen: React.FC = () => {
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);
-  const isLoggedIn = useStore((state) => state.isLoggedIn);
   const server = useStore((state) => state.server);
   const setUser = useStore((state) => state.setUser);
   const setUsertype = useStore((state) => state.setUsertype);
   const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
 
-  useEffect(() => {
+  const handleLogout = async () => {
     try {
-      fetch(`${server}/api/user`, {
+      await fetch(`${server}/api/logout`, {
+        method: "POST",
         credentials: "include",
-      })
-        .then((response) => response.json())
-        .then((user) => {
-          console.log(user);
-          setUser(user);
-          setIsLoggedIn(true);
-          if (user.adminid) {
-            setUsertype("admin");
-          } else if (user.childid) {
-            setUsertype("child");
-          } else if (user.guideid) {
-            setUsertype("guide");
-          }
-        })
-        .catch((error) => console.log(error));
+      });
+      setUser({});
+      setIsLoggedIn(false);
+      setUsertype(null);
     } catch (error) {
       console.error(error);
     }
-  }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn]);
-
-  const handleLogout = () => {
-    fetch(`${server}/api/logout`, {
-      method: "POST",
-      credentials: "include",
-    })
-      .then(() => {
-        setUser({});
-        setIsLoggedIn(false);
-        setUsertype(null);
-      })
-      .catch((error) => console.error(error));
   };
 
   const PageDisplay: React.FC = () => {
