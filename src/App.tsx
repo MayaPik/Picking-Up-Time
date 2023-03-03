@@ -33,7 +33,7 @@ function App() {
         }
       })
       .catch((error) => console.log(error));
-  }, [setUser, setUsertype, setIsLoggedIn, server]);
+  }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn]);
 
   useEffect(() => {
     const checkUserLoggedIn = () => {
