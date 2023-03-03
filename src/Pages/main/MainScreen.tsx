@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { ParentScreen } from "./ParentScreen";
 import { AdminScreen } from "./AdminScreen";
 import { GuideScreen } from "./GuideScreen";
@@ -25,14 +26,21 @@ interface Props {
 export const MainScreen: React.FC<Props> = ({ onLogout: handleLogout }) => {
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);
+  const isLoggedIn = useStore((state) => state.isLoggedIn);
 
   const PageDisplay: React.FC = () => {
-    if (usertype === "child") {
-      return <ParentScreen />;
-    } else if (usertype === "guide") {
-      return <GuideScreen />;
+    if (isLoggedIn) {
+      if (usertype === "child") {
+        return <ParentScreen />;
+      } else if (usertype === "guide") {
+        return <GuideScreen />;
+      } else if (usertype === "admin") {
+        return <AdminScreen />;
+      } else {
+        return <Navigate to="/" />;
+      }
     } else {
-      return <AdminScreen />;
+      return <Navigate to="/" />;
     }
   };
 
