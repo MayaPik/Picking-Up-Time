@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { LoginScreen } from "./Pages/login/LoginScreen";
 import { MainScreen } from "./Pages/main/MainScreen";
 import { useStore } from "./store";
@@ -55,7 +50,7 @@ function App() {
       console.error(error);
     }
 
-    if (isLoggedIn && window.location.href === "/") {
+    if (isLoggedIn && window.location.href !== "/main") {
       navigate("/main");
     }
   }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn, navigate]);

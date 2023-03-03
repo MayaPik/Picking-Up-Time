@@ -24,7 +24,9 @@ export const AdminException: FunctionComponent = () => {
     const getChildrenList = async () => {
       try {
         let url = `${server}/api/getAllChildren`;
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          credentials: "include",
+        });
         const data = await response.json();
         if (data.message) {
           setListOfChildren(data.data);
