@@ -32,6 +32,8 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
   const [error, setError] = useState("");
 
   const user = useStore((state) => state.user);
+  const server = useStore((state) => state.server);
+
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = (event: any) => {
@@ -56,21 +58,19 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
       timeValue = null;
     }
     try {
-      const response = await fetch(
-        `https://mayo-final-project.herokuapp.com/api/update${screentype}times`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            childid: user.childid,
-            day: chosenDay,
-            time: timeValue,
-            date: chosenDate.toDateString(),
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${server}/api/update${screentype}times`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({
+          childid: user.childid,
+          day: chosenDay,
+          time: timeValue,
+          date: chosenDate.toDateString(),
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.ok) {
         setMessage(
           `Data updated successfully. for ${
