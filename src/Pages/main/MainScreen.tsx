@@ -27,18 +27,17 @@ export const MainScreen: React.FC = () => {
   const setUsertype = useStore((state) => state.setUsertype);
   const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
 
-  const handleLogout = async () => {
-    try {
-      await fetch(`${server}/api/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
-      setUser({});
-      setIsLoggedIn(false);
-      setUsertype(null);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleLogout = () => {
+    fetch(`${server}/api/logout`, {
+      method: "POST",
+      credentials: "include",
+    })
+      .then(() => {
+        setUser({});
+        setIsLoggedIn(false);
+        setUsertype(null);
+      })
+      .catch((error) => console.error(error));
   };
 
   const PageDisplay: React.FC = () => {
