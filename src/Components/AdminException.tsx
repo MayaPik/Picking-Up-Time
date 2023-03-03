@@ -16,7 +16,6 @@ export const AdminException: FunctionComponent = () => {
   const dayOfWeek = useDateStore((state) => state.dayOfWeek);
   const today = useDateStore((state) => state.today);
   const server = useStore((state) => state.server);
-
   const [timeValue, setTimeValue] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -49,7 +48,6 @@ export const AdminException: FunctionComponent = () => {
       try {
         const response = await fetch(`${server}/api/updateongoingtimes`, {
           credentials: "include",
-
           method: "POST",
           body: JSON.stringify({
             childid: childChosen?.childid,
