@@ -53,7 +53,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginScreen />} />
-        <Route path="/main" element={<MainScreen onLogOut={handleLogout} />} />
+        <Route path="/main" element={<MainScreen onLogout={handleLogout} />} />
       </Routes>
     </Router>
   );
