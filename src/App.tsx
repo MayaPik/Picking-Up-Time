@@ -12,7 +12,7 @@ function App() {
   const setUsertype = useStore((state) => state.setUsertype);
   const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
 
-  uuseEffect(() => {
+  useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await fetch(`${server}/api/user`, {
