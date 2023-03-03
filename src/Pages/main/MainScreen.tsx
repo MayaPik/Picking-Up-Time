@@ -21,6 +21,7 @@ import "./mainscreen.css";
 interface Props {
   onLogout: () => void;
 }
+
 export const MainScreen: React.FC<Props> = ({ onLogout: handleLogout }) => {
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);

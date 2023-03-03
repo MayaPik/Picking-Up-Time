@@ -27,25 +27,28 @@ function App() {
   const setUser = useStore((state) => state.setUser);
   const setUsertype = useStore((state) => state.setUsertype);
   const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
-
   useEffect(() => {
-    fetch(`${server}/api/user`, {
-      credentials: "include",
-    })
-      .then((response) => response.json())
-      .then((user) => {
-        console.log(user);
-        setUser(user);
-        setIsLoggedIn(true);
-        if (user.adminid) {
-          setUsertype("admin");
-        } else if (user.childid) {
-          setUsertype("child");
-        } else if (user.guideid) {
-          setUsertype("guide");
-        }
+    try {
+      fetch(`${server}/api/user`, {
+        credentials: "include",
       })
-      .catch((error) => console.log(error));
+        .then((response) => response.json())
+        .then((user) => {
+          console.log(user);
+          setUser(user);
+          setIsLoggedIn(true);
+          if (user.adminid) {
+            setUsertype("admin");
+          } else if (user.childid) {
+            setUsertype("child");
+          } else if (user.guideid) {
+            setUsertype("guide");
+          }
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+      console.error(error);
+    }
   }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn]);
 
   const handleLogout = () => {
