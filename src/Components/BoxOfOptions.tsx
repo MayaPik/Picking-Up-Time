@@ -82,6 +82,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
             (screentype === "ongoing" ? chosenDate.toDateString() : "") +
             " time: " +
             options.find((option) => option.value === pickingUpTime)?.name +
+            <br /> +
             userMessage
           } `
         );
