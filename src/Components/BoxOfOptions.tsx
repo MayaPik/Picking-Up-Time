@@ -10,6 +10,7 @@ import {
   Select,
   SelectChangeEvent,
   Alert,
+  TextField,
 } from "@mui/material";
 import "./components.css";
 interface LoginScreenProps {
@@ -30,6 +31,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
   const [pickingUpTime, setPickingUpTime] = useState<string | null>("15:00");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [userMessage, setUserMessage] = useState<string>("");
 
   const user = useStore((state) => state.user);
   const server = useStore((state) => state.server);
@@ -45,6 +47,10 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
     { name: "15:30", value: "15:30" },
     { name: "After 15:45 (Defualt)", value: "after_hours" },
   ];
+
+  const handleTextFiledChange = (event: any) => {
+    setUserMessage(event.target.value as string);
+  };
 
   const handleChange = (event: SelectChangeEvent) => {
     setPickingUpTime(event.target.value as string | null);
@@ -66,6 +72,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
           day: chosenDay,
           time: timeValue,
           date: chosenDate.toDateString(),
+          message: userMessage,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -123,7 +130,12 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
             I understand that this will be saved for the next times
           </p>
         ) : (
-          ""
+          <TextField
+            id="outlined-basic"
+            label="message for the guide"
+            variant="outlined"
+            onChange={handleTextFiledChange}
+          />
         )}
         <br />
         <Button
