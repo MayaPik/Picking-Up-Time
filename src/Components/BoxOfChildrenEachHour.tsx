@@ -75,7 +75,10 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
     const classIdToName = async (id: number): Promise<string> => {
       try {
         const response = await fetch(
-          `${server}/api/getClassName?classid=${id}`
+          `${server}/api/getClassName?classid=${id}`,
+          {
+            credentials: "include",
+          }
         );
         const data = await response.json();
         if (data.message) {

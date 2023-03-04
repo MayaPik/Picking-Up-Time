@@ -82,8 +82,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
             (screentype === "ongoing" ? chosenDate.toDateString() : "") +
             " time: " +
             options.find((option) => option.value === pickingUpTime)?.name +
-            <br /> +
-            userMessage
+            (userMessage ? "with the message" + userMessage : "")
           } `
         );
       } else {
@@ -129,6 +128,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
           </p>
         ) : (
           <TextField
+            sx={{ mt: 1, width: "100%" }}
             id="outlined-basic"
             label="message for the guide"
             variant="outlined"

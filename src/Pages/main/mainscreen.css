@@ -102,3 +102,11 @@
     width: 100%;
   }
 }
+
+.messages {
+  margin-top: 2em;
+  padding: 1em;
+  width: 60vw;
+  display: flex;
+  align-items: center;
+}
