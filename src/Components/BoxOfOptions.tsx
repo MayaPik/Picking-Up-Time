@@ -59,6 +59,10 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
     if (pickingUpTime === "after_hours") {
       timeValue = null;
     }
+    let messageValue: string | null = userMessage;
+    if (userMessage === " ") {
+      messageValue = null;
+    }
     try {
       const response = await fetch(`${server}/api/update${screentype}times`, {
         method: "POST",
@@ -68,7 +72,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
           day: chosenDay,
           time: timeValue,
           date: chosenDate.toDateString(),
-          message: userMessage,
+          message: messageValue,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +86,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
             (screentype === "ongoing" ? chosenDate.toDateString() : "") +
             " time: " +
             options.find((option) => option.value === pickingUpTime)?.name +
-            (userMessage ? "with the message" + userMessage : "")
+            (userMessage ? " with the message " + userMessage : "")
           } `
         );
       } else {

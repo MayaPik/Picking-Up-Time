@@ -1,9 +1,9 @@
+import { useState, useEffect } from "react";
 import { useStore, useDateStore } from "../../store";
 import { BoxOfChildrenEachHour } from "../../Components/BoxOfChildrenEachHour";
 import { Box, Card } from "@mui/material";
 import kidsBackground2 from "../../Assests/Pictures/kidsBackground2.png";
 import "./mainscreen.css";
-import { useState, useEffect } from "react";
 
 interface EachChild {
   childid: number;
@@ -57,8 +57,8 @@ export const GuideScreen: React.FC = () => {
         <BoxOfChildrenEachHour hour={"15:30"} />
         <BoxOfChildrenEachHour hour={"else"} />
       </div>
-      <Card>
-        <Box className="messages">
+      <Card className="messages">
+        <Box>
           {messages.length === 0 ? (
             ""
           ) : (
@@ -66,7 +66,8 @@ export const GuideScreen: React.FC = () => {
               {messages.map((each: EachChild) => (
                 <li key={each.childid}>
                   <span>
-                    {each.first_name} {each.last_name} {each?.message}
+                    A message from {each.first_name} {each.last_name} parents:{" "}
+                    {each?.message}
                   </span>
                   &nbsp;
                   <span>{message && message}</span>
