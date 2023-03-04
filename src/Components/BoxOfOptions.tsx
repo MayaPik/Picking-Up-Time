@@ -48,10 +48,6 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
     { name: "After 15:45 (Defualt)", value: "after_hours" },
   ];
 
-  const handleTextFiledChange = (event: any) => {
-    setUserMessage(event.target.value as string);
-  };
-
   const handleChange = (event: SelectChangeEvent) => {
     setPickingUpTime(event.target.value as string | null);
   };
@@ -85,7 +81,8 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
             ", " +
             (screentype === "ongoing" ? chosenDate.toDateString() : "") +
             " time: " +
-            options.find((option) => option.value === pickingUpTime)?.name
+            options.find((option) => option.value === pickingUpTime)?.name +
+            userMessage
           } `
         );
       } else {
@@ -134,7 +131,10 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
             id="outlined-basic"
             label="message for the guide"
             variant="outlined"
-            onChange={handleTextFiledChange}
+            value={userMessage}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setUserMessage(event.target.value);
+            }}
           />
         )}
         <br />
