@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { LoginScreen } from "./Pages/login/LoginScreen";
+import { ResetPassword } from "./Pages/ResetPassword";
 import { MainScreen } from "./Pages/main/MainScreen";
 import { useStore } from "./store";
 import "./App.css";
@@ -59,6 +60,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginScreen />} />
         <Route path="/main" element={<MainScreen onLogout={handleLogout} />} />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
       </Routes>
     </>
   );
