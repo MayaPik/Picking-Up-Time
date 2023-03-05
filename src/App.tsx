@@ -50,7 +50,11 @@ function App() {
       console.error(error);
     }
 
-    if (isLoggedIn && window.location.href !== "/main") {
+    if (
+      isLoggedIn &&
+      window.location.href !== "/main" &&
+      window.location.href !== "/ResetPassword"
+    ) {
       navigate("/main");
     }
   }, [setUser, setUsertype, setIsLoggedIn, server, isLoggedIn, navigate]);
