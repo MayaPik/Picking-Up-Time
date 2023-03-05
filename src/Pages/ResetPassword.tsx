@@ -27,7 +27,7 @@ export const ResetPassword: React.FC = () => {
 
   const handleResetPassword = async () => {
     try {
-      const response = await fetch(`${server}/api/reset-password`, {
+      const response = await fetch(`${server}/reset-password`, {
         method: "POST",
         body: JSON.stringify({
           phoneNumber,
