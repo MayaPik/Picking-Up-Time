@@ -8,7 +8,6 @@ import {
   Chip,
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -25,6 +24,7 @@ interface props {
 export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);
+  const server = useStore((state) => state.server);
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
@@ -50,6 +50,44 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
     setOpen(false);
   };
 
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSendVerificationCode = async () => {
+    try {
+      const response = await fetch(`${server}/send-verification-code`, {
+        method: "POST",
+        body: JSON.stringify({ phoneNumber }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
+      setMessage(data.message);
+    } catch (error) {
+      setError("error");
+    }
+  };
+
+  const handleResetPassword = async () => {
+    try {
+      const response = await fetch(`${server}/api/reset-password`, {
+        method: "POST",
+        body: JSON.stringify({
+          phoneNumber,
+          verificationCode,
+          newPassword,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
+      setMessage(data.message);
+    } catch (error) {
+      setError("error");
+    }
+  };
+
   return (
     <Box>
       <div className="chip">
@@ -67,21 +105,49 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
         >
           <DialogTitle id="responsive-dialog-title">
             {"Change Password"}
+            {message && message}
+            {error && error}
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
+              Please enter your phone number to receive a verification code and
+              reset your password.
             </DialogContentText>
+            <label>
+              Phone Number:
+              <input
+                type="text"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </label>
+            <Button onClick={handleSendVerificationCode}>
+              Send Verification Code
+            </Button>
+            <br />
+            <br />
+            <label>
+              Verification Code:
+              <input
+                type="text"
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+              />
+            </label>
+            <br />
+            <br />
+            <label>
+              New Password:
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+            </label>
+            <br />
+            <br />
+            <Button onClick={handleResetPassword}>Reset Password</Button>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} autoFocus>
-              Cancel
-            </Button>
-            <Button onClick={handleClose} autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
         </Dialog>
         <Button onClick={handleLogout}>SIGN OUT</Button>
       </div>

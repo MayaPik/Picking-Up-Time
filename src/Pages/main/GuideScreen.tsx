@@ -60,7 +60,7 @@ export const GuideScreen: React.FC = () => {
       <Card className="messages">
         <Box>
           {messages.length === 0 ? (
-            ""
+            "There are no message for today right now"
           ) : (
             <ul>
               {messages.map((each: EachChild) => (
