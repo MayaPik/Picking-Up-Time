@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useStore } from "../store";
 import { Box, Button } from "@mui/material";
-import "./mainscreen.css";
 
 export const ResetPassword: React.FC = () => {
   const server = useStore((state) => state.server);
