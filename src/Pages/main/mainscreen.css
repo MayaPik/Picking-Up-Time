@@ -123,6 +123,10 @@
 .boxoftext {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   min-width: 250px;
+}
+
+.textCenter {
+  text-align: center;
 }

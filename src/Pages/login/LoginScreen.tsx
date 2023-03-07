@@ -16,12 +16,10 @@ export const LoginScreen: FunctionComponent = () => {
     <div>
       <UserTypePath />
       <FormOfLoginScreen />
-
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          mt: 2,
           alignItems: "center",
         }}
       >

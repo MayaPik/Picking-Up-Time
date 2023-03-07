@@ -128,8 +128,8 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
                 Change Password
               </Button>
               <br />
-              {message && message}
-              {error && error}
+              {message && <span className="textCenter"> {message}</span>}
+              {error && <span className="textCenter">{error}</span>}
             </Box>
           </DialogContent>
         </Dialog>
