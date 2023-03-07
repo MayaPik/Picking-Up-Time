@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useStore } from "../store";
+import { useNavigate } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 
 export const ResetPassword: React.FC = () => {
   const server = useStore((state) => state.server);
+  const navigate = useNavigate();
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
@@ -25,6 +27,9 @@ export const ResetPassword: React.FC = () => {
     }
   };
 
+  const handleGoBack = () => {
+    navigate("/");
+  };
   const handleResetPassword = async () => {
     try {
       const response = await fetch(`${server}/reset-password`, {
@@ -45,8 +50,6 @@ export const ResetPassword: React.FC = () => {
 
   return (
     <Box>
-      {message && message}
-      {error && error}
       <h2>
         Please enter your phone number to receive a verification code and reset
         your password.
@@ -85,6 +88,24 @@ export const ResetPassword: React.FC = () => {
       <br />
       <br />
       <Button onClick={handleResetPassword}>Reset Password</Button>
+      {message && message}
+      {error && error}
+      {message ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            mt: 2,
+            alignItems: "center",
+          }}
+        >
+          <Button variant="outlined" sx={{ m: 3 }} onClick={handleGoBack}>
+            Go Back To Login
+          </Button>
+        </Box>
+      ) : (
+        ""
+      )}
     </Box>
   );
 };

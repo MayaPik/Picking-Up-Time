@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { UserTypePath } from "./UserTypePath";
 import { FormOfLoginScreen } from "./FormOfLoginScreen";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import kidsBackground from "../../Assests/Pictures/kidsBackground.png";
 import "./login.css";
@@ -17,7 +17,22 @@ export const LoginScreen: FunctionComponent = () => {
     <div>
       <UserTypePath />
       <FormOfLoginScreen />
-      <Button onClick={handleResetPasswordClick}>Reset Password</Button>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          mt: 2,
+          alignItems: "center",
+        }}
+      >
+        <Button
+          variant="outlined"
+          sx={{ m: 3 }}
+          onClick={handleResetPasswordClick}
+        >
+          Reset Password
+        </Button>
+      </Box>
       <div className="kidsFlex">
         <img src={kidsBackground} alt="" className="kids" />
       </div>

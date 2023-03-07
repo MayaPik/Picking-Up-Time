@@ -59,6 +59,7 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
       const response = await fetch(`${server}/change-password`, {
         method: "POST",
         body: JSON.stringify({
+          user_id: user.user_id,
           oldPassword,
           newPassword,
         }),
