@@ -3,7 +3,7 @@ import { useStore } from "../store";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography, TextField } from "@mui/material";
 import kidsBackground from "../Assests/Pictures/kidsBackground.png";
-import "./login.css";
+import "./login/login.css";
 
 export const ResetPassword: React.FC = () => {
   const server = useStore((state) => state.server);
