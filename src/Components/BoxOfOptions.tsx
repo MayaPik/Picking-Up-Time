@@ -28,19 +28,19 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
   screentype,
   chosenDate,
 }) => {
+  const user = useStore((state) => state.user);
+  const server = useStore((state) => state.server);
+
   const [pickingUpTime, setPickingUpTime] = useState<string | null>("15:00");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [userMessage, setUserMessage] = useState<string>("");
-
-  const user = useStore((state) => state.user);
-  const server = useStore((state) => state.server);
-
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = (event: any) => {
     setIsChecked(event.target.checked);
   };
+
   const options: Option[] = [
     { name: "Not staying", value: "00:00" },
     { name: "15:00", value: "15:00" },

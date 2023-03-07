@@ -11,11 +11,12 @@ interface Child {
 }
 
 export const AdminException: FunctionComponent = () => {
-  const [ListOfChildren, setListOfChildren] = useState<Array<Child>>([]);
-  const [childChosen, setchildChosen] = useState<Child | null>(null);
   const dayOfWeek = useDateStore((state) => state.dayOfWeek);
   const today = useDateStore((state) => state.today);
   const server = useStore((state) => state.server);
+
+  const [ListOfChildren, setListOfChildren] = useState<Array<Child>>([]);
+  const [childChosen, setchildChosen] = useState<Child | null>(null);
   const [timeValue, setTimeValue] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");

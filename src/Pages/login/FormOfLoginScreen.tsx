@@ -5,9 +5,10 @@ import { useStore } from "../../store";
 import "./login.css";
 
 export const FormOfLoginScreen: FunctionComponent = () => {
+  const navigate = useNavigate();
+
   const server = useStore((state) => state.server);
   const usertype = useStore((state) => state.usertype);
-  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

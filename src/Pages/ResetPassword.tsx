@@ -53,26 +53,12 @@ export const ResetPassword: React.FC = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          mt: 2,
-          alignItems: "center",
-        }}
-      >
+      <Box className="dialog">
         <Typography variant="h6" gutterBottom sx={{ textAlign: "center" }}>
           Please enter your phone number to receive a verification code and
           reset your password.
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            marginBottom: 2,
-            minWidth: 250,
-          }}
-        >
+        <Box className="boxoftext">
           <TextField
             id="phone-number-input"
             label="Phone Number"
@@ -81,26 +67,12 @@ export const ResetPassword: React.FC = () => {
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 2,
-          }}
-        >
+        <Box className="boxoftext">
           <Button onClick={handleSendVerificationCode}>
             Send Verification Code
           </Button>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            marginBottom: 2,
-            minWidth: 250,
-          }}
-        >
+        <Box className="boxoftext">
           <TextField
             id="verification-code-input"
             label="Verification Code"
@@ -109,14 +81,7 @@ export const ResetPassword: React.FC = () => {
             onChange={(e) => setVerificationCode(e.target.value)}
           />
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            marginBottom: 2,
-            minWidth: 250,
-          }}
-        >
+        <Box className="boxoftext">
           <TextField
             id="new-password-input"
             label="New Password"
@@ -125,14 +90,7 @@ export const ResetPassword: React.FC = () => {
             onChange={(e) => setNewPassword(e.target.value)}
           />
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            marginBottom: 2,
-            minWidth: 250,
-          }}
-        >
+        <Box className="boxoftext">
           <Button
             variant="contained"
             color="primary"
@@ -144,14 +102,7 @@ export const ResetPassword: React.FC = () => {
         {message && <Typography color="success">{message}</Typography>}
         {error && <Typography color="error">{error}</Typography>}
         {message === "Password reset successfully." ? (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 3,
-            }}
-          >
+          <Box className="back">
             <Button variant="outlined" color="primary" onClick={handleGoBack}>
               Go Back To Login
             </Button>

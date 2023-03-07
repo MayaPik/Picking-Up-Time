@@ -8,7 +8,6 @@ import "./login.css";
 
 export const LoginScreen: FunctionComponent = () => {
   const navigate = useNavigate();
-
   const handleResetPasswordClick = () => {
     navigate("/resetpassword");
   };
@@ -17,6 +16,7 @@ export const LoginScreen: FunctionComponent = () => {
     <div>
       <UserTypePath />
       <FormOfLoginScreen />
+
       <Box
         sx={{
           display: "flex",
@@ -33,6 +33,7 @@ export const LoginScreen: FunctionComponent = () => {
           Reset Password
         </Button>
       </Box>
+
       <div className="kidsFlex">
         <img src={kidsBackground} alt="" className="kids" />
       </div>

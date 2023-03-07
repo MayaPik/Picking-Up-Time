@@ -112,3 +112,17 @@
   margin-right: auto;
   text-align: center;
 }
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  align-items: center;
+}
+
+.boxoftext {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+  min-width: 250px;
+}

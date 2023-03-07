@@ -90,12 +90,7 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
           open={open}
           onClose={handleClose}
           aria-labelledby="responsive-dialog-title"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            mt: 2,
-            alignItems: "center",
-          }}
+          className="dialog"
         >
           <DialogTitle id="responsive-dialog-title">
             <Typography variant="h6" gutterBottom sx={{ textAlign: "center" }}>
@@ -106,14 +101,7 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
             <DialogContentText sx={{ textAlign: "center" }}>
               Please enter your old password and the new one
             </DialogContentText>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                marginBottom: 2,
-                minWidth: 250,
-              }}
-            >
+            <Box className="boxoftext">
               <TextField
                 margin="normal"
                 label="Old Password"
@@ -122,14 +110,7 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
                 inputRef={oldPasswordRef}
               />
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                marginBottom: 2,
-                minWidth: 250,
-              }}
-            >
+            <Box className="boxoftext">
               <TextField
                 margin="normal"
                 label="New Password"
@@ -138,16 +119,18 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
                 inputRef={newPasswordRef}
               />
             </Box>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleChangePassword}
-            >
-              Change Password
-            </Button>
-            <br />
-            {message && message}
-            {error && error}
+            <Box className="boxoftext">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleChangePassword}
+              >
+                Change Password
+              </Button>
+              <br />
+              {message && message}
+              {error && error}
+            </Box>
           </DialogContent>
         </Dialog>
         <Button onClick={handleLogout}>SIGN OUT</Button>

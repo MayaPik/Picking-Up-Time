@@ -5,9 +5,9 @@ import Diversity1Icon from "@mui/icons-material/Diversity1";
 import kidsBackground2 from "../../Assests/Pictures/kidsBackground2.png";
 
 export const ParentScreen: React.FC = () => {
+  const user = useStore((state) => state.user);
   const screentype = useParentStore((state) => state.screentype);
   const setScreentype = useParentStore((state) => state.setScreentype);
-  const user = useStore((state) => state.user);
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,

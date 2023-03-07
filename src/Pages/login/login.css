@@ -25,3 +25,24 @@
 .kids {
   width: 100vw;
 }
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  align-items: center;
+}
+
+.boxoftext {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+  min-width: 250px;
+}
+
+.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
+}

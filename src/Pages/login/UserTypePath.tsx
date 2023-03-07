@@ -2,14 +2,14 @@ import { FunctionComponent } from "react";
 import { useStore } from "../../store";
 import { Stack, Button } from "@mui/material";
 import "./login.css";
+
 export const UserTypePath: FunctionComponent = () => {
-  const setUsertype = useStore((state) => state.setUsertype);
   const usertype = useStore((state) => state.usertype);
+  const setUsertype = useStore((state) => state.setUsertype);
 
   const handleChange = (event: React.MouseEvent<HTMLButtonElement>) => {
     const userType = event.currentTarget.value;
     setUsertype(userType);
-    localStorage.setItem("usertype", userType);
   };
 
   return (
