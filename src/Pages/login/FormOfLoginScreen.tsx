@@ -43,16 +43,7 @@ export const FormOfLoginScreen: FunctionComponent = () => {
       <h1 className="header">
         Hey {usertype === "child" ? "parent" : usertype}, please sign in
       </h1>
-      <Box
-        component="form"
-        onSubmit={handleForm}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          mt: 2,
-          alignItems: "center",
-        }}
-      >
+      <Box className="dialog" component="form" onSubmit={handleForm}>
         <TextField
           className="box"
           label="User Name"
