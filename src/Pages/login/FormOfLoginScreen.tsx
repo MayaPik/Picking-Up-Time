@@ -73,7 +73,7 @@ export const FormOfLoginScreen: FunctionComponent = () => {
           Sign In
         </Button>
         {error && usertype === null ? (
-          <Alert severity="error">Please Choose User Type</Alert>
+          <Alert severity="error">Please Choose a user type</Alert>
         ) : error ? (
           <Alert severity="error">{error}</Alert>
         ) : (

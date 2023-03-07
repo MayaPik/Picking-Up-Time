@@ -113,7 +113,7 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
               label="Old Password"
               type="text"
               value={oldPassword}
-              onChange={handleOldPasswordChange}
+              onSubmit={handleOldPasswordChange}
               fullWidth
             />
             <TextField
@@ -121,10 +121,12 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
               label="New Password"
               type="password"
               value={newPassword}
-              onChange={handleNewPasswordChange}
+              onSubmit={handleNewPasswordChange}
               fullWidth
             />
-            <Button onClick={handleChangePassword}>Reset Password</Button>
+            <Button type="submit" onClick={handleChangePassword}>
+              Change Password
+            </Button>
             {message && message}
             {error && error}
           </DialogContent>
