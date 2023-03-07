@@ -14,6 +14,7 @@ import {
   useMediaQuery,
   useTheme,
   TextField,
+  Typography,
 } from "@mui/material";
 import FaceIcon from "@mui/icons-material/Face";
 import "./mainscreen.css";
@@ -89,29 +90,62 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
           open={open}
           onClose={handleClose}
           aria-labelledby="responsive-dialog-title"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            mt: 2,
+            alignItems: "center",
+          }}
         >
           <DialogTitle id="responsive-dialog-title">
-            {"Change Password"}
+            <Typography variant="h6" gutterBottom sx={{ textAlign: "center" }}>
+              Change Password
+            </Typography>
           </DialogTitle>
           <DialogContent>
-            <DialogContentText>
+            <DialogContentText sx={{ textAlign: "center" }}>
               Please enter your old password and the new one
             </DialogContentText>
-            <TextField
-              margin="normal"
-              label="Old Password"
-              type="text"
-              fullWidth
-              inputRef={oldPasswordRef}
-            />
-            <TextField
-              margin="normal"
-              label="New Password"
-              type="password"
-              fullWidth
-              inputRef={newPasswordRef}
-            />
-            <Button onClick={handleChangePassword}>Change Password</Button>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                marginBottom: 2,
+                minWidth: 250,
+              }}
+            >
+              <TextField
+                margin="normal"
+                label="Old Password"
+                type="password"
+                fullWidth
+                inputRef={oldPasswordRef}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                marginBottom: 2,
+                minWidth: 250,
+              }}
+            >
+              <TextField
+                margin="normal"
+                label="New Password"
+                type="password"
+                fullWidth
+                inputRef={newPasswordRef}
+              />
+            </Box>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleChangePassword}
+            >
+              Change Password
+            </Button>
+            <br />
             {message && message}
             {error && error}
           </DialogContent>
