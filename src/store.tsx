@@ -26,6 +26,7 @@ interface DateState {
   setToday: (today: Date) => void;
   setDayOfWeek: (dayOfWeek: string) => void;
 }
+
 export const useDateStore = create<DateState>((set) => ({
   today: new Date(),
   dayOfWeek: new Date().toLocaleDateString("en-US", { weekday: "long" }),

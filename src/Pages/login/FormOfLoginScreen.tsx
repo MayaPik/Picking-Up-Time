@@ -46,7 +46,7 @@ export const FormOfLoginScreen: FunctionComponent = () => {
       <Box className="dialog" component="form" onSubmit={handleForm}>
         <TextField
           className="box"
-          label="User Name"
+          label="User Name Or Phone Number"
           name="username"
           variant="outlined"
           value={username}

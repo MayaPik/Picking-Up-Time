@@ -27,7 +27,7 @@ export const LoginScreen: FunctionComponent = () => {
       >
         <Button
           variant="outlined"
-          sx={{ m: 3 }}
+          sx={{ m: 2 }}
           onClick={handleResetPasswordClick}
         >
           Reset Password
