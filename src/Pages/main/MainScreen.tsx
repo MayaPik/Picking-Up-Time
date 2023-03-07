@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { ParentScreen } from "./ParentScreen";
 import { AdminScreen } from "./AdminScreen";
 import { GuideScreen } from "./GuideScreen";
@@ -17,7 +17,6 @@ import {
 } from "@mui/material";
 import FaceIcon from "@mui/icons-material/Face";
 import "./mainscreen.css";
-
 interface props {
   onLogout: () => void;
 }
@@ -35,7 +34,7 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
     } else if (usertype === "admin") {
       return <AdminScreen />;
     } else {
-      return <div>You are not autorized</div>;
+      return <div>You are not authorized</div>;
     }
   };
 
@@ -50,8 +49,13 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const oldPasswordRef = useRef<HTMLInputElement>(null);
+  const newPasswordRef = useRef<HTMLInputElement>(null);
 
   const handleOldPasswordChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -65,17 +69,16 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
     setNewPassword(event.target.value);
   };
 
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-
   const handleChangePassword = async () => {
     try {
+      const oldPasswordValue = await oldPasswordRef.current?.value;
+      const newPasswordValue = await newPasswordRef.current?.value;
       const response = await fetch(`${server}/change-password`, {
         method: "POST",
         body: JSON.stringify({
           user_id: user.user_id,
-          oldPassword,
-          newPassword,
+          oldPassword: oldPasswordValue,
+          newPassword: newPasswordValue,
         }),
         headers: { "Content-Type": "application/json" },
       });
@@ -113,20 +116,20 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
               label="Old Password"
               type="text"
               value={oldPassword}
-              onSubmit={handleOldPasswordChange}
+              onChange={handleOldPasswordChange}
               fullWidth
+              inputRef={oldPasswordRef}
             />
             <TextField
               margin="normal"
               label="New Password"
               type="password"
               value={newPassword}
-              onSubmit={handleNewPasswordChange}
+              onChange={handleNewPasswordChange}
               fullWidth
+              inputRef={newPasswordRef}
             />
-            <Button type="submit" onClick={handleChangePassword}>
-              Change Password
-            </Button>
+            <Button onClick={handleChangePassword}>Change Password</Button>
             {message && message}
             {error && error}
           </DialogContent>
