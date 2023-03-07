@@ -13,9 +13,11 @@ import {
   DialogTitle,
   useMediaQuery,
   useTheme,
+  TextField,
 } from "@mui/material";
 import FaceIcon from "@mui/icons-material/Face";
 import "./mainscreen.css";
+
 interface props {
   onLogout: () => void;
 }
@@ -48,9 +50,21 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
   const handleClose = () => {
     setOpen(false);
   };
-
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+
+  const handleOldPasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setOldPassword(event.target.value);
+  };
+
+  const handleNewPasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNewPassword(event.target.value);
+  };
+
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -89,34 +103,30 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
         >
           <DialogTitle id="responsive-dialog-title">
             {"Change Password"}
-            {message && message}
-            {error && error}
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
               Please enter your old password and the new one
             </DialogContentText>
-            <label>
-              Old Password:
-              <input
-                type="text"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-              />
-            </label>
-            <br />
-            <br />
-            <label>
-              New Password:
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-            </label>
-            <br />
-            <br />
+            <TextField
+              margin="normal"
+              label="Old Password"
+              type="text"
+              value={oldPassword}
+              onChange={handleOldPasswordChange}
+              fullWidth
+            />
+            <TextField
+              margin="normal"
+              label="New Password"
+              type="password"
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+              fullWidth
+            />
             <Button onClick={handleChangePassword}>Reset Password</Button>
+            {message && message}
+            {error && error}
           </DialogContent>
         </Dialog>
         <Button onClick={handleLogout}>SIGN OUT</Button>

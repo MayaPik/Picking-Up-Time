@@ -72,7 +72,13 @@ export const FormOfLoginScreen: FunctionComponent = () => {
         <Button type="submit" variant="contained" sx={{ m: 3 }}>
           Sign In
         </Button>
-        {error && <Alert severity="error">{error}</Alert>}
+        {error && usertype === null ? (
+          <Alert severity="error">Please Choose User Type</Alert>
+        ) : error ? (
+          <Alert severity="error">{error}</Alert>
+        ) : (
+          ""
+        )}
       </Box>
     </Box>
   );

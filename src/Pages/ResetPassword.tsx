@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useStore } from "../store";
 import { useNavigate } from "react-router-dom";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography, TextField } from "@mui/material";
 
 export const ResetPassword: React.FC = () => {
   const server = useStore((state) => state.server);
@@ -30,6 +30,7 @@ export const ResetPassword: React.FC = () => {
   const handleGoBack = () => {
     navigate("/");
   };
+
   const handleResetPassword = async () => {
     try {
       const response = await fetch(`${server}/reset-password`, {
@@ -49,57 +50,106 @@ export const ResetPassword: React.FC = () => {
   };
 
   return (
-    <Box>
-      <h2>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        mt: 2,
+        alignItems: "center",
+      }}
+    >
+      <Typography variant="h6" gutterBottom>
         Please enter your phone number to receive a verification code and reset
         your password.
-      </h2>
-      <label>
-        Phone Number:
-        <input
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          marginBottom: 2,
+          minWidth: 250,
+        }}
+      >
+        <TextField
+          id="phone-number-input"
+          label="Phone Number"
           type="text"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
-      </label>
-      <Button onClick={handleSendVerificationCode}>
-        Send Verification Code
-      </Button>
-      <br />
-      <br />
-      <label>
-        Verification Code:
-        <input
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 2,
+        }}
+      >
+        <Button onClick={handleSendVerificationCode}>
+          Send Verification Code
+        </Button>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          marginBottom: 2,
+          minWidth: 250,
+        }}
+      >
+        <TextField
+          id="verification-code-input"
+          label="Verification Code"
           type="text"
           value={verificationCode}
           onChange={(e) => setVerificationCode(e.target.value)}
         />
-      </label>
-      <br />
-      <br />
-      <label>
-        New Password:
-        <input
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          marginBottom: 2,
+          minWidth: 250,
+        }}
+      >
+        <TextField
+          id="new-password-input"
+          label="New Password"
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
-      </label>
-      <br />
-      <br />
-      <Button onClick={handleResetPassword}>Reset Password</Button>
-      {message && message}
-      {error && error}
-      {message ? (
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          marginBottom: 2,
+          minWidth: 250,
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleResetPassword}
+        >
+          Reset Password
+        </Button>
+      </Box>
+      {message && <Typography color="success">{message}</Typography>}
+      {error && <Typography color="error">{error}</Typography>}
+      {message === "Password reset successfully." ? (
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
-            mt: 2,
+            justifyContent: "center",
             alignItems: "center",
+            marginTop: 3,
           }}
         >
-          <Button variant="outlined" sx={{ m: 3 }} onClick={handleGoBack}>
+          <Button variant="outlined" color="primary" onClick={handleGoBack}>
             Go Back To Login
           </Button>
         </Box>
