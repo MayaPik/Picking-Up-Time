@@ -50,29 +50,15 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
     setOpen(false);
   };
 
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const oldPasswordRef = useRef<HTMLInputElement>(null);
   const newPasswordRef = useRef<HTMLInputElement>(null);
 
-  const handleOldPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setOldPassword(event.target.value);
-  };
-
-  const handleNewPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setNewPassword(event.target.value);
-  };
-
   const handleChangePassword = async () => {
     try {
-      const oldPasswordValue = await oldPasswordRef.current?.value;
-      const newPasswordValue = await newPasswordRef.current?.value;
+      const oldPasswordValue = oldPasswordRef.current?.value;
+      const newPasswordValue = newPasswordRef.current?.value;
       const response = await fetch(`${server}/change-password`, {
         method: "POST",
         body: JSON.stringify({
@@ -115,8 +101,6 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
               margin="normal"
               label="Old Password"
               type="text"
-              value={oldPassword}
-              onChange={handleOldPasswordChange}
               fullWidth
               inputRef={oldPasswordRef}
             />
@@ -124,8 +108,6 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
               margin="normal"
               label="New Password"
               type="password"
-              value={newPassword}
-              onChange={handleNewPasswordChange}
               fullWidth
               inputRef={newPasswordRef}
             />
