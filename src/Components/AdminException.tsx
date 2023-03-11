@@ -44,10 +44,12 @@ export const AdminException: FunctionComponent = () => {
 
   const handleTimeChange = (event: any) => {
     let value = event.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    if (value.length > 2) {
-      value = value.substring(0, 2) + ":" + value.substring(2); // Add ":" after the first two digits
+    if (value.length === 2) {
+      value = value.substring(0, 2) + ":";
     }
-    setTimeValue(value);
+    if (/^1[2-5]:[0-5]\d$/.test(value)) {
+      setTimeValue(value);
+    }
   };
 
   const handleSubmit = async () => {
