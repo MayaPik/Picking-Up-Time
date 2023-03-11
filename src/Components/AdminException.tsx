@@ -112,6 +112,7 @@ export const AdminException: FunctionComponent = () => {
               onChange={handleTimeChange}
               inputProps={{
                 inputMode: "numeric",
+                pattern: "^1[2-5]:[0-5]\\d$",
               }}
             />
             <Button variant="contained" onClick={handleSubmit}>
