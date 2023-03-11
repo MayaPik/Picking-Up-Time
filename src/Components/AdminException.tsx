@@ -43,9 +43,13 @@ export const AdminException: FunctionComponent = () => {
   }, [server]);
 
   const handleTimeChange = (event: any) => {
-    const inputTime = event.currentTarget.value;
-    setTimeValue(inputTime);
+    let value = event.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    if (value.length > 2) {
+      value = value.substring(0, 2) + ":" + value.substring(2); // Add ":" after the first two digits
+    }
+    setTimeValue(value);
   };
+
   const handleSubmit = async () => {
     if (/^1[2-5]:[0-5]\d$/.test(timeValue)) {
       try {
@@ -106,8 +110,6 @@ export const AdminException: FunctionComponent = () => {
               onChange={handleTimeChange}
               inputProps={{
                 inputMode: "numeric",
-                pattern: "^1[2-5]:[0-5]\\d$",
-                maxLength: 5,
               }}
             />
             <Button variant="contained" onClick={handleSubmit}>
