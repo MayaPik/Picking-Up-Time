@@ -47,9 +47,7 @@ export const AdminException: FunctionComponent = () => {
     if (value.length === 2) {
       value = value.substring(0, 2) + ":";
     }
-    if (/^1[2-5]:[0-5]\d$/.test(value)) {
-      setTimeValue(value);
-    }
+    setTimeValue(value);
   };
 
   const handleSubmit = async () => {
