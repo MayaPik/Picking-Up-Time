@@ -44,9 +44,10 @@ export const AdminException: FunctionComponent = () => {
 
   const handleTimeChange = (event: any) => {
     let value = event.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    if (value.length === 2) {
-      value = value.substring(0, 2) + ":";
+    if (value.length >= 2) {
+      value = value.substring(0, 2) + ":" + value.substring(2);
     }
+
     setTimeValue(value);
   };
 
