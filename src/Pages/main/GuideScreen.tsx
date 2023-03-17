@@ -38,9 +38,13 @@ export const GuideScreen: React.FC = () => {
         return "יום רביעי";
       case "thursday":
         return "יום חמישי";
+        case "friday":
+          return "יום שישי";
+          case "saturday":
+          return "יום שבת";
+      }
     }
   }
-  const herbewDay = convertToHebrewDayOfWeek(dayOfWeek);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -73,7 +77,9 @@ export const GuideScreen: React.FC = () => {
       <h3 className="heading">
         {language === "eng"
           ? ` Here is your Scedule for ${dayOfWeek}, ${today.toDateString()}`
-          : ` ${today.toDateString()}, ${herbewDay}לוח הזמנים שלך ל`}
+          : ` ${today.toDateString()}, ${convertToHebrewDayOfWeek(
+              dayOfWeek
+            )}לוח הזמנים שלך ל`}
       </h3>
       <div className="boxes">
         <BoxOfChildrenEachHour hour={"00:00"} />

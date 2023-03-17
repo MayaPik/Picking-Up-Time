@@ -21,10 +21,10 @@ interface HourData {
 }
 
 const hours = [
-  { time: "00:00", string: "Not Staying" },
-  { time: "15:00", string: "15:00" },
-  { time: "15:30", string: "15:30" },
-  { time: "else", string: "Exceptions" },
+  { time: "00:00", string: "Not Staying", hebString: "לא נשארים" },
+  { time: "15:00", string: "15:00", hebString: "15:00" },
+  { time: "15:30", string: "15:30", hebString: "15:30" },
+  { time: "else", string: "Exceptions", hebString: "שעות מיוחדות" },
 ];
 
 export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
@@ -110,7 +110,9 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
         <h1 className="head">
           {hours
             .filter((each) => each.time === hour)
-            .map((hour) => hour.string)}{" "}
+            .map((hour) => {
+              return language === "eng" ? hour.string : hour.hebString;
+            })}
         </h1>
         {childrenOfHour.length === 0 ? (
           <p>{language === "eng" ? message : `אין ילדים שיוצאים בשעה הזו`}</p>
