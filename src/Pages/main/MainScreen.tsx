@@ -87,11 +87,14 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
           label={
             language === "eng"
               ? `signed in as ${user.username}`
-              : `מחובר כ${user.username}`
+              : `${user.username} מחובר כ`
           }
           variant="outlined"
         />
-        <Button onClick={handleClickOpen}>Change Password</Button>
+        <Button onClick={handleClickOpen}>
+          {" "}
+          {language === "eng" ? "Change Password" : "שינוי סיסמא"}
+        </Button>
         <Dialog
           fullScreen={fullScreen}
           open={open}

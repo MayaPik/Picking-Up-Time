@@ -11,6 +11,7 @@ export const AdminScreen: React.FC = () => {
   const today = useDateStore((state) => state.today);
   const screentypeAdmin = useAdminState((state) => state.screentypeAdmin);
   const setScreentypeAdmin = useAdminState((state) => state.setScreentypeAdmin);
+  const language = useStore((state) => state.language);
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -23,7 +24,11 @@ export const AdminScreen: React.FC = () => {
 
   return (
     <Box>
-      <h1 className="heading">Welcome Back {user.first_name}!</h1>
+      <h1 className="heading">
+        {language === "eng"
+          ? `Welcome Back ${user.english_name}!`
+          : `{user.first_name} ברוכ/ה הבא/ה`}
+      </h1>
       <div className="toggle">
         <ToggleButtonGroup
           color="primary"
@@ -32,8 +37,14 @@ export const AdminScreen: React.FC = () => {
           onChange={handleChange}
           aria-label="Platform"
         >
-          <ToggleButton value="main">Main Screen</ToggleButton>
-          <ToggleButton value="else">Enter a manual pickup time</ToggleButton>
+          <ToggleButton value="main">
+            {language === "eng" ? `Main Screen` : `מסך ראשי`}
+          </ToggleButton>
+          <ToggleButton value="else">
+            {language === "eng"
+              ? `Enter a manual pickup time`
+              : `הזנת זמן איסוף מיוחד`}
+          </ToggleButton>
         </ToggleButtonGroup>
       </div>
       {screentypeAdmin === "main" ? (

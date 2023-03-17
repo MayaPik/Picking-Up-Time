@@ -104,9 +104,9 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
         {screentype === "ongoing" ? (
           <p>
             {language === "eng"
-              ? "Changes will be only saved for"
-              : "שינוים ישמרו רק ל"}{" "}
-            {chosenDate?.toDateString()}
+              ? `Changes will be only saved for ${chosenDate?.toDateString()}`
+              : `${chosenDate?.toDateString()} שינויים ישמרו רק לתאריך ה`}
+            {}
           </p>
         ) : (
           <p></p>
@@ -144,7 +144,9 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
           <TextField
             sx={{ mt: 1, width: "100%" }}
             id="outlined-basic"
-            label="message for the guide"
+            label={
+              language === "eng" ? "message for the guide" : "הודעה למדריכ/ה"
+            }
             variant="outlined"
             value={userMessage}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

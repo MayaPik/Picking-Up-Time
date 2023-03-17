@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Box, BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { BoxOfOptions } from "./BoxOfOptions";
-import { useParentStore, useDateStore } from "../store";
+import { useParentStore, useDateStore, useStore } from "../store";
 import "./components.css";
 
 export const PickingUpComponent: React.FC = () => {
   const screentype = useParentStore((state) => state.screentype);
   const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
+  const HebDays = ["ראשון", "שני", "שלישי", "רביעי", "חמישי"];
   const dayOfWeek = useDateStore((state) => state.dayOfWeek);
   const today = useDateStore((state) => state.today);
-
+  const language = useStore((state) => state.language);
   const [chosenDay, setChosenday] = useState(dayOfWeek);
   const [chosenDate, setChosendate] = useState(today);
 
@@ -36,9 +37,22 @@ export const PickingUpComponent: React.FC = () => {
           setChosendate(getCurrentWeekDayDate(newValue));
         }}
       >
-        {days.map((day, index) => {
-          return <BottomNavigationAction key={index} label={day} value={day} />;
-        })}
+        {language === "eng"
+          ? days.map((day, index) => {
+              return (
+                <BottomNavigationAction key={index} label={day} value={day} />
+              );
+            })
+          : HebDays.map((day, index) => {
+              return (
+                <BottomNavigationAction
+                  key={index}
+                  label={day}
+                  value={days[index]}
+                  dir="rtl"
+                />
+              );
+            })}
       </BottomNavigation>
       <BoxOfOptions
         chosenDay={chosenDay}

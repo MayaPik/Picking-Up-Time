@@ -1,12 +1,13 @@
 import { useStore } from "../store";
-import { Box, InputLabel, Select, MenuItem } from "@mui/material";
+import { Box, Fab } from "@mui/material";
 
 export const Navbar: React.FC = () => {
   const language = useStore((state) => state.language);
   const setLanguage = useStore((state) => state.setLanguage);
 
-  function handleChangeLanguage(event: any) {
-    const newLanguage = event.target.value;
+  function handleChangeLanguage() {
+    let newLanguage;
+    language === "eng" ? (newLanguage = "heb") : (newLanguage = "eng");
     setLanguage(newLanguage);
   }
 
@@ -18,11 +19,14 @@ export const Navbar: React.FC = () => {
         paddingLeft: 2,
       }}
     >
-      <InputLabel id="demo-simple-select-label">Language שפה</InputLabel>
-      <Select value={language} label="Age" onChange={handleChangeLanguage}>
-        <MenuItem value={"eng"}>English</MenuItem>
-        <MenuItem value={"heb"}>Herbrew</MenuItem>
-      </Select>
+      <Fab
+        variant="extended"
+        size="medium"
+        color="secondary"
+        onClick={handleChangeLanguage}
+      >
+        {language === "eng" ? "English" : "עברית"}
+      </Fab>
     </Box>
   );
 };
