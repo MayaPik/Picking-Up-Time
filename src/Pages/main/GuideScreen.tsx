@@ -38,11 +38,10 @@ export const GuideScreen: React.FC = () => {
         return "יום רביעי";
       case "thursday":
         return "יום חמישי";
-        case "friday":
-          return "יום שישי";
-          case "saturday":
-          return "יום שבת";
-      }
+      case "friday":
+        return "יום שישי";
+      case "saturday":
+        return "יום שבת";
     }
   }
 
