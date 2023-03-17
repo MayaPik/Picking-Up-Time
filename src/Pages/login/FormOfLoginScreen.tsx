@@ -6,9 +6,10 @@ import "./login.css";
 
 export const FormOfLoginScreen: FunctionComponent = () => {
   const navigate = useNavigate();
-
   const server = useStore((state) => state.server);
   const usertype = useStore((state) => state.usertype);
+  const language = useStore((state) => state.language);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -41,12 +42,24 @@ export const FormOfLoginScreen: FunctionComponent = () => {
   return (
     <Box sx={{ p: 2 }}>
       <h1 className="header">
-        Hey {usertype === "child" ? "parent" : usertype}, please sign in
+        {language === "eng"
+          ? `Hey ${usertype === "child" ? "parent" : usertype}, please sign in`
+          : language === "heb" && usertype === "child"
+          ? "התחבר כהורה"
+          : language === "heb" && usertype === "guide"
+          ? "התחבר כמדריכ/ה"
+          : language === "heb" && usertype === "admin"
+          ? "התחבר כמנהל"
+          : "התחבר"}
       </h1>
       <Box className="dialog" component="form" onSubmit={handleForm}>
         <TextField
           className="box"
-          label="User Name Or Phone Number"
+          label={
+            language === "eng"
+              ? "User Name Or Phone Number"
+              : "שם משתמש או מספר טלפון"
+          }
           name="username"
           variant="outlined"
           value={username}
@@ -54,7 +67,7 @@ export const FormOfLoginScreen: FunctionComponent = () => {
         />
         <TextField
           className="box"
-          label="Password"
+          label={language === "eng" ? "Password" : "סיסמא"}
           type="password"
           variant="outlined"
           value={password}
@@ -62,10 +75,14 @@ export const FormOfLoginScreen: FunctionComponent = () => {
           sx={{ mt: 2 }}
         />
         <Button type="submit" variant="contained" sx={{ m: 3 }}>
-          Sign In
+          {language === "eng" ? "Sign In" : "התחברות"}{" "}
         </Button>
         {error && usertype === null ? (
-          <Alert severity="error">Please Choose a user type</Alert>
+          <Alert severity="error">
+            {language === "eng"
+              ? "Please Choose a user type<"
+              : "בבקשה בחר/י איך להתחבר"}
+          </Alert>
         ) : error ? (
           <Alert severity="error">{error}</Alert>
         ) : (

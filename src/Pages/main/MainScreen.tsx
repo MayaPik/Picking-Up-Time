@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { ParentScreen } from "./ParentScreen";
 import { AdminScreen } from "./AdminScreen";
 import { GuideScreen } from "./GuideScreen";
+import { Navbar } from "../../Components/Navbar";
 import { useStore } from "../../store";
 import {
   Box,
@@ -26,6 +27,7 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
   const user = useStore((state) => state.user);
   const usertype = useStore((state) => state.usertype);
   const server = useStore((state) => state.server);
+  const language = useStore((state) => state.language);
 
   const PageDisplay: React.FC = () => {
     if (usertype === "child") {
@@ -78,10 +80,15 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
 
   return (
     <Box>
+      <Navbar />
       <div className="chip">
         <Chip
           icon={<FaceIcon />}
-          label={`signed in as ${user.username}`}
+          label={
+            language === "eng"
+              ? `signed in as ${user.username}`
+              : `מחובר כ${user.username}`
+          }
           variant="outlined"
         />
         <Button onClick={handleClickOpen}>Change Password</Button>
@@ -94,17 +101,19 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
         >
           <DialogTitle id="responsive-dialog-title">
             <Typography variant="h6" gutterBottom sx={{ textAlign: "center" }}>
-              Change Password
+              {language === "eng" ? "Change Password" : "שינוי סיסמא"}
             </Typography>
           </DialogTitle>
           <DialogContent>
             <DialogContentText sx={{ textAlign: "center" }}>
-              Please enter your old password and the new one
+              {language === "eng"
+                ? "Please enter your old password and the new one"
+                : "הכנס סיסמא חדשה וסיסמא ישנה"}
             </DialogContentText>
             <Box className="boxoftext">
               <TextField
                 margin="normal"
-                label="Old Password"
+                label={language === "eng" ? "Old Password" : " סיסמא ישנה"}
                 type="password"
                 fullWidth
                 inputRef={oldPasswordRef}
@@ -113,7 +122,7 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
             <Box className="boxoftext">
               <TextField
                 margin="normal"
-                label="New Password"
+                label={language === "eng" ? "New Password" : " סיסמא חדשה"}
                 type="password"
                 fullWidth
                 inputRef={newPasswordRef}
@@ -125,7 +134,7 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
                 color="primary"
                 onClick={handleChangePassword}
               >
-                Change Password
+                {language === "eng" ? "Change Password" : "שינוי סיסמא"}
               </Button>
               <br />
               {message && <span className="textCenter"> {message}</span>}
@@ -133,7 +142,10 @@ export const MainScreen: React.FC<props> = ({ onLogout: handleLogout }) => {
             </Box>
           </DialogContent>
         </Dialog>
-        <Button onClick={handleLogout}>SIGN OUT</Button>
+        <Button onClick={handleLogout}>
+          {" "}
+          {language === "eng" ? "SIGN OUT" : "התנתקות"}
+        </Button>
       </div>
       <PageDisplay />
     </Box>

@@ -30,6 +30,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
 }) => {
   const user = useStore((state) => state.user);
   const server = useStore((state) => state.server);
+  const language = useStore((state) => state.language);
 
   const [pickingUpTime, setPickingUpTime] = useState<string | null>("15:00");
   const [message, setMessage] = useState("");
@@ -101,12 +102,19 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
     <Box>
       <Card className="card" sx={{ backgroundColor: "whitesmoke" }}>
         {screentype === "ongoing" ? (
-          <p>Changes will be only saved for {chosenDate?.toDateString()}</p>
+          <p>
+            {language === "eng"
+              ? "Changes will be only saved for"
+              : "שינוים ישמרו רק ל"}{" "}
+            {chosenDate?.toDateString()}
+          </p>
         ) : (
           <p></p>
         )}
         <FormControl fullWidth>
-          <InputLabel id="pickpuptime">Pickup time</InputLabel>
+          <InputLabel id="pickpuptime">
+            {language === "eng" ? "Pickup time" : "זמן איסוף"}
+          </InputLabel>
           <Select
             value={pickingUpTime || ""}
             onChange={handleChange}
@@ -128,7 +136,9 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
               checked={isChecked}
               required
             />
-            I understand that this will be saved for the next times
+            {language === "eng"
+              ? "I understand that this will be saved for the next times"
+              : "אני מאשר/ת שהשינויים ישמרו לפעמים הבאות"}
           </p>
         ) : (
           <TextField
@@ -149,7 +159,7 @@ export const BoxOfOptions: React.FC<LoginScreenProps> = ({
           onClick={handleSubmit}
           disabled={screentype === "fixed" ? !isChecked : false}
         >
-          Submit
+          {language === "eng" ? "Submit" : "עדכון"}
         </Button>
       </Card>
       {message && (

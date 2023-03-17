@@ -8,6 +8,7 @@ import "./login/login.css";
 export const ResetPassword: React.FC = () => {
   const server = useStore((state) => state.server);
   const navigate = useNavigate();
+  const language = useStore((state) => state.language);
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
@@ -55,8 +56,9 @@ export const ResetPassword: React.FC = () => {
     <>
       <Box className="dialog">
         <Typography variant="h6" gutterBottom sx={{ textAlign: "center" }}>
-          Please enter your phone number to receive a verification code and
-          reset your password.
+          {language === "eng"
+            ? "Please enter your phone number to receive a verification code and reset your password"
+            : "בבקשה הכנס/י מספר טלפון על מנת לקבל קוד ולאפס סיסמא"}
         </Typography>
         <Box className="boxoftext">
           <TextField
@@ -69,7 +71,7 @@ export const ResetPassword: React.FC = () => {
         </Box>
         <Box className="boxoftext">
           <Button onClick={handleSendVerificationCode}>
-            Send Verification Code
+            {language === "eng" ? "Send Verification Code" : "שלח קוד אימות"}
           </Button>
         </Box>
         <Box className="boxoftext">
@@ -96,7 +98,7 @@ export const ResetPassword: React.FC = () => {
             color="primary"
             onClick={handleResetPassword}
           >
-            Reset Password
+            {language === "eng" ? " Reset Password" : "אפס/י סיסמא"}
           </Button>
         </Box>
         {message && <Typography color="success">{message}</Typography>}
@@ -104,7 +106,7 @@ export const ResetPassword: React.FC = () => {
         {message === "Password reset successfully." ? (
           <Box className="back">
             <Button variant="outlined" color="primary" onClick={handleGoBack}>
-              Go Back To Login
+              {language === "eng" ? "Go Back To Login" : "בחזרה להתחברות"}
             </Button>
           </Box>
         ) : (

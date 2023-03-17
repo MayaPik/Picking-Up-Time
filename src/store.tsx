@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
 interface AppState {
+  language: string;
+  setLanguage: (language: string) => void;
   server: string;
   user: { [key: string]: string };
   setUser: (user: {}) => void;
@@ -11,10 +13,12 @@ interface AppState {
 }
 
 export const useStore = create<AppState>((set) => ({
+  language: "heb",
+  setLanguage: (language: string) => set({ language }),
   server: "https://backend.pickinguptime.com",
   user: {},
   setUser: (user: {}) => set({ user }),
-  usertype: null,
+  usertype: "child",
   setUsertype: (usertype: string | null) => set({ usertype }),
   isLoggedIn: false,
   setIsLoggedIn: (isLoggedIn: boolean) => set({ isLoggedIn }),

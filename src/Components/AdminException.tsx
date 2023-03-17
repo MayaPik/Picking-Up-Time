@@ -14,6 +14,7 @@ export const AdminException: FunctionComponent = () => {
   const dayOfWeek = useDateStore((state) => state.dayOfWeek);
   const today = useDateStore((state) => state.today);
   const server = useStore((state) => state.server);
+  const language = useStore((state) => state.language);
 
   const [ListOfChildren, setListOfChildren] = useState<Array<Child>>([]);
   const [childChosen, setchildChosen] = useState<Child | null>(null);
@@ -43,7 +44,7 @@ export const AdminException: FunctionComponent = () => {
   }, [server]);
 
   const handleTimeChange = (event: any) => {
-    let value = event.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    let value = event.target.value.replace(/\D/g, "");
     if (value.length >= 2) {
       value = value.substring(0, 2) + ":" + value.substring(2);
     }
@@ -95,7 +96,10 @@ export const AdminException: FunctionComponent = () => {
             }
             sx={{ width: 500 }}
             renderInput={(params) => (
-              <TextField {...params} label="Choose a child" />
+              <TextField
+                {...params}
+                label={language === "eng" ? "Choose a child" : "בחר/י ילד"}
+              />
             )}
           />
         )}
@@ -105,7 +109,9 @@ export const AdminException: FunctionComponent = () => {
             <TextField
               sx={{ width: 200 }}
               required
-              label="Required Pickup Time"
+              label={
+                language === "eng" ? "Required Pickup Time" : "זמן איסוף מבוקש"
+              }
               placeholder="HH:MM"
               value={timeValue}
               onChange={handleTimeChange}
@@ -115,7 +121,7 @@ export const AdminException: FunctionComponent = () => {
               }}
             />
             <Button variant="contained" onClick={handleSubmit}>
-              Submit
+              {language === "eng" ? "Submit" : "עדכון"}
             </Button>
           </>
         )}

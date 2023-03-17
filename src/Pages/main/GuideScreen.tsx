@@ -17,6 +17,7 @@ export const GuideScreen: React.FC = () => {
   const dayOfWeek = useDateStore((state) => state.dayOfWeek);
   const today = useDateStore((state) => state.today);
   const server = useStore((state) => state.server);
+  const language = useStore((state) => state.language);
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Array<EachChild>>([]);
@@ -49,7 +50,9 @@ export const GuideScreen: React.FC = () => {
     <Box>
       <h1 className="heading">Welcome Back {user.first_name}!</h1>
       <h3 className="heading">
-        Here is your Scedule for {dayOfWeek}, {today.toDateString()}
+        {language === "eng"
+          ? ` Here is your Scedule for ${dayOfWeek}, ${today.toDateString()}`
+          : ` Here is your Scedule for ${dayOfWeek}, ${today.toDateString()}`}
       </h3>
       <div className="boxes">
         <BoxOfChildrenEachHour hour={"00:00"} />
