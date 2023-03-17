@@ -43,13 +43,12 @@ export const PickingUpComponent: React.FC = () => {
                 <BottomNavigationAction key={index} label={day} value={day} />
               );
             })
-          : HebDays.map((day, index) => {
+          : HebDays.reverse().map((day, index) => {
               return (
                 <BottomNavigationAction
                   key={index}
                   label={day}
                   value={days[index]}
-                  dir="rtl"
                 />
               );
             })}

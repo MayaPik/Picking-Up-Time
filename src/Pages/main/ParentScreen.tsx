@@ -53,16 +53,24 @@ export const ParentScreen: React.FC = () => {
       <br />
       {screentype === "fixed" ? (
         <h3 className="heading">
-          {language === "eng"
-            ? `  Are there any days you want to pick ${user?.english_name} in the same
+          {language === "eng" ? (
+            `  Are there any days you want to pick ${user?.english_name} in the same
             hour?`
-            : `האם יש ימים קבועים שאתם רוצים לאסוף את ${user?.first_name}`}
+          ) : (
+            <span dir="rtl">
+              `האם יש ימים קבועים בהם אתם רוצים לאסוף את ${user?.first_name} ?`
+            </span>
+          )}
         </h3>
       ) : (
         <h3 className="heading">
-          {language === "eng"
-            ? `When do you want to pick up ${user?.english_name}`
-            : `מתי אתם רוצים לאסוף את ${user?.first_name} ?`}
+          {language === "eng" ? (
+            `When do you want to pick up ${user?.english_name}`
+          ) : (
+            <span dir="rtl">
+              `מתי אתם רוצים לאסוף את ${user?.first_name} ?`
+            </span>
+          )}
         </h3>
       )}
 

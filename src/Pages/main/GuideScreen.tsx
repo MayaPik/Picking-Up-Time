@@ -26,6 +26,22 @@ export const GuideScreen: React.FC = () => {
     today.getMonth() + 1
   )}-${today.getDate()}`;
 
+  function convertToHebrewDayOfWeek(day: string) {
+    switch (day.toLowerCase()) {
+      case "sunday":
+        return "יום ראשון";
+      case "monday":
+        return "יום שני";
+      case "tuesday":
+        return "יום שלישי";
+      case "wednesday":
+        return "יום רביעי";
+      case "thursday":
+        return "יום חמישי";
+    }
+  }
+  const herbewDay = convertToHebrewDayOfWeek(dayOfWeek);
+
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -48,11 +64,16 @@ export const GuideScreen: React.FC = () => {
 
   return (
     <Box>
-      <h1 className="heading">Welcome Back {user.first_name}!</h1>
+      <h1 className="heading">
+        {language === "eng"
+          ? `Welcome Back ${user.english_name}`
+          : `${user.first_name} ברוכ/ה הבא/ה `}
+        !
+      </h1>
       <h3 className="heading">
         {language === "eng"
           ? ` Here is your Scedule for ${dayOfWeek}, ${today.toDateString()}`
-          : ` Here is your Scedule for ${dayOfWeek}, ${today.toDateString()}`}
+          : ` ${today.toDateString()}, ${herbewDay}לוח הזמנים שלך ל`}
       </h3>
       <div className="boxes">
         <BoxOfChildrenEachHour hour={"00:00"} />
@@ -63,15 +84,26 @@ export const GuideScreen: React.FC = () => {
       <Card className="messages">
         <Box>
           {messages.length === 0 ? (
-            "There are no message for today right now"
+            language === "eng" ? (
+              "There are no message for today right now"
+            ) : (
+              "אין הודעות חדשות כרגע"
+            )
           ) : (
             <ul>
               {messages.map((each: EachChild) => (
                 <li key={each.childid}>
-                  <span>
-                    A message from {each.first_name} {each.last_name} parents:{" "}
-                    {each?.message}
-                  </span>
+                  {language === "eng" ? (
+                    <span>
+                      A message from {each.first_name} {each.last_name} parents:{" "}
+                      {each?.message}
+                    </span>
+                  ) : (
+                    <span>
+                      :{each.last_name} {each.first_name} הודעה חדשה מההורים של
+                      {each?.message}
+                    </span>
+                  )}
                   &nbsp;
                   <span>{message && message}</span>
                 </li>

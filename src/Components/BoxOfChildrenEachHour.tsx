@@ -33,6 +33,7 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
   const usertype = useStore((state) => state.usertype);
   const dayOfWeek = useDateStore((state) => state.dayOfWeek);
   const today = useDateStore((state) => state.today);
+  const language = useStore((state) => state.language);
 
   const [classNames, setClassNames] = useState<{ [key: number]: string }>({});
   const [message, setMessage] = useState("");
@@ -112,7 +113,7 @@ export const BoxOfChildrenEachHour: React.FC<TimeProps> = ({ hour }) => {
             .map((hour) => hour.string)}{" "}
         </h1>
         {childrenOfHour.length === 0 ? (
-          <p>{message}</p>
+          <p>{language === "eng" ? message : `אין ילדים שיוצאים בשעה הזו`}</p>
         ) : (
           <ul>
             {childrenOfHour.map((child: Child) => (

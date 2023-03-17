@@ -22,6 +22,22 @@ export const AdminScreen: React.FC = () => {
     }
   };
 
+  function convertToHebrewDayOfWeek(day: string) {
+    switch (day.toLowerCase()) {
+      case "sunday":
+        return "יום ראשון";
+      case "monday":
+        return "יום שני";
+      case "tuesday":
+        return "יום שלישי";
+      case "wednesday":
+        return "יום רביעי";
+      case "thursday":
+        return "יום חמישי";
+    }
+  }
+  const herbewDay = convertToHebrewDayOfWeek(dayOfWeek);
+
   return (
     <Box>
       <h1 className="heading">
@@ -50,7 +66,9 @@ export const AdminScreen: React.FC = () => {
       {screentypeAdmin === "main" ? (
         <>
           <h3 className="heading">
-            Schedule for {dayOfWeek} {today.toDateString()}
+            {language === "eng"
+              ? ` Here is your Scedule for ${dayOfWeek}, ${today.toDateString()}`
+              : ` ${today.toDateString()}, ${herbewDay}לוח הזמנים שלך ל`}
           </h3>
           <div className="boxes">
             <BoxOfChildrenEachHour hour={"00:00"} />
@@ -62,8 +80,10 @@ export const AdminScreen: React.FC = () => {
       ) : screentypeAdmin === "else" ? (
         <>
           <h3 className="heading">
-            Want to enter an manual pickup time for &nbsp;
-            {today.toDateString()} ?
+            {language === "eng"
+              ? `Want to enter an manual pickup time for &nbsp;
+            ${today.toDateString()} ?`
+              : `${today.toDateString()}רוצה להזין זמן איסוף מיוחד ל`}
           </h3>
           <AdminException />
         </>
