@@ -75,10 +75,8 @@ export const GuideScreen: React.FC = () => {
       </h1>
       <h3 className="heading">
         {language === "eng"
-          ? ` Here is your Scedule for ${dayOfWeek}, ${today.toDateString()}`
-          : ` ${today.toDateString()}, ${convertToHebrewDayOfWeek(
-              dayOfWeek
-            )}לוח הזמנים שלך ל`}
+          ? ` Here is your Schedule for ${dayOfWeek}, ${today.toDateString()}`
+          : `${convertToHebrewDayOfWeek(dayOfWeek)},${today.toDateString()}`}
       </h3>
       <div className="boxes">
         <BoxOfChildrenEachHour hour={"00:00"} />

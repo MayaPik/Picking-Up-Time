@@ -34,16 +34,19 @@ export const AdminScreen: React.FC = () => {
         return "יום רביעי";
       case "thursday":
         return "יום חמישי";
+      case "friday":
+        return "יום שישי";
+      case "saturday":
+        return "יום שבת";
     }
   }
-  const herbewDay = convertToHebrewDayOfWeek(dayOfWeek);
 
   return (
     <Box>
       <h1 className="heading">
         {language === "eng"
           ? `Welcome Back ${user.english_name}!`
-          : `{user.first_name} ברוכ/ה הבא/ה`}
+          : `${user.first_name} ברוכ/ה הבא/ה`}
       </h1>
       <div className="toggle">
         <ToggleButtonGroup
@@ -67,8 +70,10 @@ export const AdminScreen: React.FC = () => {
         <>
           <h3 className="heading">
             {language === "eng"
-              ? ` Here is your Scedule for ${dayOfWeek}, ${today.toDateString()}`
-              : ` ${today.toDateString()}, ${herbewDay}לוח הזמנים שלך ל`}
+              ? ` Here is your Schedule for ${dayOfWeek}, ${today.toDateString()}`
+              : `${convertToHebrewDayOfWeek(
+                  dayOfWeek
+                )},${today.toDateString()}`}
           </h3>
           <div className="boxes">
             <BoxOfChildrenEachHour hour={"00:00"} />
