@@ -58,7 +58,7 @@ export const ParentScreen: React.FC = () => {
             hour?`
           ) : (
             <span dir="rtl">
-              `האם יש ימים קבועים בהם אתם רוצים לאסוף את ${user?.first_name} ?`
+              האם יש ימים קבועים בהם אתם רוצים לאסוף את {user?.first_name} ?
             </span>
           )}
         </h3>
@@ -67,9 +67,7 @@ export const ParentScreen: React.FC = () => {
           {language === "eng" ? (
             `When do you want to pick up ${user?.english_name}`
           ) : (
-            <span dir="rtl">
-              `מתי אתם רוצים לאסוף את ${user?.first_name} ?`
-            </span>
+            <span dir="rtl">מתי אתם רוצים לאסוף את {user?.first_name} ?</span>
           )}
         </h3>
       )}

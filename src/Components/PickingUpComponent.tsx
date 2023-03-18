@@ -48,7 +48,7 @@ export const PickingUpComponent: React.FC = () => {
                 <BottomNavigationAction
                   key={index}
                   label={day}
-                  value={days[index]}
+                  value={days.reverse()[index]}
                 />
               );
             })}
