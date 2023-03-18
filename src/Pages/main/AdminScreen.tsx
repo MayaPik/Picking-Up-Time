@@ -71,9 +71,9 @@ export const AdminScreen: React.FC = () => {
           <h3 className="heading">
             {language === "eng"
               ? ` Here is your Schedule for ${dayOfWeek}, ${today.toDateString()}`
-              : ` ${today.toDateString()} ,${convertToHebrewDayOfWeek(
+              : ` ${today.toDateString()} ,לוח הזמנים שלך ל ${convertToHebrewDayOfWeek(
                   dayOfWeek
-                )}לוח הזמנים שלך ל`}
+                )}`}
           </h3>
           <div className="boxes">
             <BoxOfChildrenEachHour hour={"00:00"} />
