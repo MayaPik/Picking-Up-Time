@@ -63,7 +63,7 @@ export const ResetPassword: React.FC = () => {
         <Box className="boxoftext">
           <TextField
             id="phone-number-input"
-            label="Phone Number"
+            label={language === "eng" ? "Phone Number" : "מספר טלפון"}
             type="text"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -77,7 +77,7 @@ export const ResetPassword: React.FC = () => {
         <Box className="boxoftext">
           <TextField
             id="verification-code-input"
-            label="Verification Code"
+            label={language === "eng" ? "Verification Code" : "קוד אימות"}
             type="text"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
@@ -86,7 +86,7 @@ export const ResetPassword: React.FC = () => {
         <Box className="boxoftext">
           <TextField
             id="new-password-input"
-            label="New Password"
+            label={language === "eng" ? "New Password" : "סיסמא חדשה"}
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
