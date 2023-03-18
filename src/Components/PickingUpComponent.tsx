@@ -27,7 +27,13 @@ export const PickingUpComponent: React.FC = () => {
   };
 
   return (
-    <Box className="middle">
+    <Box
+      className="middle"
+      sx={{
+        display: "flex",
+        flexDirection: language === "eng" ? "row" : "row-reverse",
+      }}
+    >
       <BottomNavigation
         sx={{ backgroundColor: "whitesmoke" }}
         showLabels
@@ -43,12 +49,12 @@ export const PickingUpComponent: React.FC = () => {
                 <BottomNavigationAction key={index} label={day} value={day} />
               );
             })
-          : HebDays.reverse().map((day, index) => {
+          : HebDays.map((day, index) => {
               return (
                 <BottomNavigationAction
                   key={index}
                   label={day}
-                  value={days.reverse()[index]}
+                  value={days[index]}
                 />
               );
             })}

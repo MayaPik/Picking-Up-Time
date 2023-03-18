@@ -46,7 +46,7 @@ export const AdminScreen: React.FC = () => {
       <h1 className="heading">
         {language === "eng"
           ? `Welcome Back ${user.english_name} !`
-          : `ברוכ/ה הבא/ה ${user.first_name} !`}
+          : `ברוכ/ה הבא/ה ${user.first_name}`}
       </h1>
       <div className="toggle">
         <ToggleButtonGroup
