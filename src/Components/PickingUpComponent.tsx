@@ -27,13 +27,7 @@ export const PickingUpComponent: React.FC = () => {
   };
 
   return (
-    <Box
-      className="middle"
-      sx={{
-        display: "flex",
-        flexDirection: language === "eng" ? "row" : "row-reverse",
-      }}
-    >
+    <Box className="middle">
       <BottomNavigation
         sx={{ backgroundColor: "whitesmoke" }}
         showLabels
@@ -52,6 +46,10 @@ export const PickingUpComponent: React.FC = () => {
           : HebDays.map((day, index) => {
               return (
                 <BottomNavigationAction
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row-reverse",
+                  }}
                   key={index}
                   label={day}
                   value={days[index]}
