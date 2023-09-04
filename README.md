@@ -2,8 +2,7 @@
 
 Welcome to Picking Up Time, the web application designed to streamline the pickup process for parents, guides, and children. Below is a guide on how to use the application:
 
-### You can visit the website here: https://welcome.pickinguptime.com 
-
+### demo : https://www.loom.com/share/434a3c4f3387428f8a9be0600cbd9e93?sid=e4a7c73a-eb68-4689-afd8-62cdae6f4433
 
 Logging in as a parent -
 Username: Amy202
